@@ -7,11 +7,10 @@ import Grid from "@mui/material/Grid";
 import * as React from "react";
 
 export default function CourseCard(props) {
-    let card = props.card;
-    let index = props.index;
+    let course = props.courseInfo;
 
     return (
-        <Grid item key={card} xs={12} sm={6} md={3}>
+        <Grid item key={course} xs={12} sm={6} md={3}>
             <Card
                 sx={{
                     height: '100%',
@@ -21,7 +20,7 @@ export default function CourseCard(props) {
                     backdropFilter: 'blur(100px)'
                 }}
                 onClick={() => {
-                    window.location.assign(`/course-details/${index}`)
+                    window.location.assign(`/course-details/${course.courseId}`)
                 }}
             >
                 <CardMedia
@@ -30,14 +29,14 @@ export default function CourseCard(props) {
                         // 16:9
                         pt: '56.25%',
                     }}
-                    image="https://source.unsplash.com/random?wallpapers"
+                    image={course.imageUrl}
                 />
                 <CardContent sx={{flexGrow: 1}}>
                     <Typography gutterBottom variant="h5" component="h2">
-                        Course One
+                        {course.title}
                     </Typography>
                     <Typography>
-                        We learn how to make an lms system.
+                        {course.description}
                     </Typography>
                 </CardContent>
                 <CardActions>
