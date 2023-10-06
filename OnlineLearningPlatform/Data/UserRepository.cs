@@ -41,9 +41,9 @@ namespace OnlineLearningPlatform.Data
 				.SingleOrDefaultAsync(x => x.UserName == username);
 		}
 
-		public async Task<MemberDto[]> GetMembersAsync()
+		public async Task<IEnumerable<MemberDto>> GetMembersAsync()
 		{
-			return _mapper.Map<MemberDto[]>(await _context.Users.ToListAsync());
+			return _mapper.Map<IEnumerable<MemberDto>>(await _context.Users.ToListAsync());
 		}
 
 		public async Task<MemberDto> GetMemberAsync(string username)
