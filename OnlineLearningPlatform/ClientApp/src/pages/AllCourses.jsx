@@ -14,9 +14,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CourseCard from "../components/CourseCard";
+import {courses} from "../MockData";
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 
 export default function AllCourses() {
@@ -51,8 +51,8 @@ export default function AllCourses() {
                 </Box>
                 <Container sx={{py: 8}} maxWidth="90%">
                     <Grid container spacing={4}>
-                        {cards.map((card, index) => (
-                            <CourseCard card={card} index={index}/>
+                        {courses.map((course, index) => (
+                            <CourseCard courseInfo={course}/>
                         ))}
                     </Grid>
                 </Container>
