@@ -34,7 +34,7 @@ namespace OnlineLearningPlatform.Extensions
 			services.AddAuthorization(opt =>
 			{
 				opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-				opt.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
+				opt.AddPolicy("RequireLecturerRole", policy => policy.RequireRole("Lecturer"));
 			});
 
 			return services;
