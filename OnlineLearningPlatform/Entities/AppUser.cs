@@ -4,6 +4,6 @@ namespace OnlineLearningPlatform.Entities
 {
 	public class AppUser : IdentityUser<int>
 	{
-
+		public List<AppUserRole> UserRoles { get; set; }
 	}
 }
