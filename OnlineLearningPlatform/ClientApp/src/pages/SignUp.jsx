@@ -100,6 +100,13 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
+                                <Link href="/instructor-signup" variant="body2">
+                                    <label className="linkLabels">Do you want to teach with us?</label>
+                                </Link>
+                            </Grid>
+                        </Grid>
+                        <Grid container justifyContent="flex-end">
+                            <Grid item>
                                 <Link href="/login" variant="body2">
                                     <label className="linkLabels">Already have an account? Sign In</label>
                                 </Link>

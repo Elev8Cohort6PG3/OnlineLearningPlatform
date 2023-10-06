@@ -9,7 +9,7 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
-import VideoEmbed from "./VideoEmbed";
+import VideoEmbed from "../components/VideoEmbed";
 
 
 const steps = [
