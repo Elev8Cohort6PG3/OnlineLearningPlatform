@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using OnlineLearningPlatform.Data;
+using OnlineLearningPlatform.Entities;
 using OnlineLearningPlatform.Extensions;
 using OnlineLearningPlatform.Middleware;
 
