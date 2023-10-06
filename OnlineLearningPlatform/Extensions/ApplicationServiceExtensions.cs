@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.Data;
 using OnlineLearningPlatform.Interfaces;
+using OnlineLearningPlatform.Services;
 
 namespace OnlineLearningPlatform.Extensions
 {
@@ -13,6 +14,7 @@ namespace OnlineLearningPlatform.Extensions
 				opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
 			});
 
+			services.AddScoped<ITokenService, TokenService>();
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 

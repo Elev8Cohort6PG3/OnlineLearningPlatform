@@ -13,6 +13,10 @@ namespace OnlineLearningPlatform.Data
 
 		}
 
+		public DbSet<Assignment> Assignments { get; set; }
+		public DbSet<Course> Courses { get; set; }
+		public DbSet<Enrollment> Enrollments { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
