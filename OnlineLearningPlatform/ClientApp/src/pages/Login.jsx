@@ -17,14 +17,13 @@ import './LoginSignUp.css';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import {Navigate, useNavigate} from 'react-router-dom';
 
-export default function Login() {
+export default function Login(props) {
     const [errorPresent, setErrorPresent] = React.useState(false);
     const [loginSuccessful, setLoginSuccessful] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState("");
 
-    const navigate = useNavigate();
+    let redirectURL = props.redirectURL;
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -45,17 +44,24 @@ export default function Login() {
                     localStorage.setItem('role', JSON.stringify(decodedToken.role));
                     localStorage.setItem('username', JSON.stringify(decodedToken.unique_name));
                     setLoginSuccessful(true);
-                    setTimeout(
-                        () => window.location.assign("/"),
-                        1000
-                    );
+                    if(redirectURL === undefined) {
+                        setTimeout(
+                            () => window.location.assign("/"),
+                            1000
+                        );
+                    } else {
+                        setTimeout(
+                            () => window.location.assign(`${redirectURL}`),
+                            1000
+                        );
+                    }
+
+
                 }).catch(error => {
                     console.log(error);
                     setErrorPresent(true);
                     setErrorMessage(error.response.data);
             });
-
-
 
     };
 
