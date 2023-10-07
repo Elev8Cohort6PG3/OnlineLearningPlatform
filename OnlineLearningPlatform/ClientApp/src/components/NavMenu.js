@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import AccountDropdownMenu from "./AccountDropdownMenu";
 
 export class NavMenu extends Component {
 
@@ -44,15 +45,15 @@ export class NavMenu extends Component {
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                {username  &&
-                    <NavLink tag={Link} className="text-dark" to="/login"><label className="navbarLabels">Logged in as {username}</label></NavLink>
-                }
+                {username  && <NavLink tag={Link} className="text-dark" to="/login"><label className="navbarLabels">Logged in as {username}</label></NavLink>}
               </NavItem>
-              <NavItem>
-                {!username  &&
-                    <NavLink tag={Link} className="text-dark" to="/login"><label className="navbarLabels">Login</label></NavLink>
-                }
+              <NavItem style={{marginTop: "26px", marginRight: "15px"}}>
+                {username  && <AccountDropdownMenu/>}
               </NavItem>
+              <NavItem >
+                {!username  && <NavLink tag={Link} className="text-dark" to="/login"><label className="navbarLabels">Login</label></NavLink>}
+              </NavItem>
+
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/all-courses"><label className="navbarLabels">Courses</label></NavLink>
               </NavItem>
