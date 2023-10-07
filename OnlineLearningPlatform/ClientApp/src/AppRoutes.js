@@ -5,6 +5,7 @@ import AllCourses from "./pages/AllCourses";
 import ConsumeContent from "./pages/ConsumeContent";
 import InstructorSignUp from "./pages/InstructorSignUp";
 import CourseDetails from "./pages/CourseDetails";
+import StudentProfilePage from "./pages/StudentProfilePage";
 
 const AppRoutes = [
   {
@@ -34,6 +35,10 @@ const AppRoutes = [
   {
     path: '/course-details/:courseId',
     element: <CourseDetails/>
+  },
+  {
+    path: '/profile',
+    element: <StudentProfilePage/>
   }
 
 
