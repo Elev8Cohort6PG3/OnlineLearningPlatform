@@ -1,0 +1,10 @@
+.course-details-main .enrollButton {
+    margin-top: 25px;
+    margin-left: 20px;
+    background-color: rgb(226, 94, 62);
+
+}
+
+.course-details-main .enrollButton:hover {
+    background-color: rgb(198, 61, 47);
+}
