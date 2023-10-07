@@ -1,0 +1,27 @@
+#ProfilePage{
+
+
+    .profile{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .col{
+        background: linear-gradient(90deg, rgb(226, 94, 62) 0%, rgb(255, 155, 80) 53%, rgb(255, 187, 92) 100%);
+        padding: 50px;
+    }
+
+    .MuiGrid-item{
+        padding: 10px;
+    }
+
+    .MuiButton-root{
+        background-color: rgb(226, 94, 62);
+
+        &:hover{
+            background-color: rgb(198, 61, 47);
+        }
+    }
+}
