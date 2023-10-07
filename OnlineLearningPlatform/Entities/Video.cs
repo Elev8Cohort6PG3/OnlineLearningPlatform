@@ -2,17 +2,17 @@
 
 namespace OnlineLearningPlatform.Entities
 {
-	[Table("Enrollments")]
-	public class Enrollment
+	[Table("Videos")]
+	public class Video
 	{
 		public int Id { get; set; }
-		public DateTime EnrollmentDate { get; set; }
-		public double CompletionPercentage { get; set; } = 0;
-
+		public string Url { get; set; }
+		public string Description { get; set; }
+		
 		//relationship properties
 		public int CourseId { get; set; }
 		public Course Course { get; set; }
-		public int AppUserId { get; set; }
-		public AppUser AppUser { get; set; }
+
+
 	}
 }
