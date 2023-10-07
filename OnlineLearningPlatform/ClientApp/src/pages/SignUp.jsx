@@ -9,14 +9,52 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import './LoginSignUp.css';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import Collapse from "@mui/material/Collapse";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import {useNavigate} from "react-router-dom";
 
 export default function SignUp() {
+
+    const [errorPresent, setErrorPresent] = React.useState(false);
+    const [registerSuccessful, setRegisterSuccessful] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState("");
+
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+        setErrorPresent(false);
+
+        axios.post("https://localhost:7240/account/register", {
+            username: data.get('username').toLowerCase(),
+            password: data.get('password')
+        })
+            .then((response) => {
+                console.log(response);
+                const token = response.data.token;
+                const decodedToken = jwt_decode(token);
+                console.log(decodedToken);
+
+                localStorage.setItem('jwtToken', JSON.stringify(token));
+                localStorage.setItem('role', JSON.stringify(decodedToken.role));
+                localStorage.setItem('username', JSON.stringify(decodedToken.unique_name));
+                setRegisterSuccessful(true);
+                setTimeout(
+                    () => window.location.assign("/"),
+                    1000
+                );
+            }).catch(error => {
+            console.log(error);
+            setErrorPresent(true);
+            if (typeof error.response.data === "object") {
+                setErrorMessage(error.response.data[0].description);
+            } else if (typeof error.response.data === "string") {
+                setErrorMessage(error.response.data);
+            }
         });
     };
 
@@ -40,7 +78,7 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{mt: 3}}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -69,10 +107,10 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
+                                    id="username"
+                                    label="Username"
+                                    name="username"
+                                    autoComplete="username"
                                     color="warning"
                                 />
                             </Grid>
@@ -98,6 +136,43 @@ export default function SignUp() {
                         >
                             Sign Up
                         </Button>
+
+                        <Box sx={{width: '100%'}}>
+
+                            <Collapse in={errorPresent}>
+                                <Alert
+                                    severity="error"
+                                    action={
+                                        <IconButton
+                                            aria-label="close"
+                                            color="inherit"
+                                            size="small"
+                                            onClick={() => {
+                                                setErrorPresent(false);
+                                            }}
+                                        >
+                                            <CloseIcon fontSize="inherit"/>
+                                        </IconButton>
+                                    }
+                                    sx={{mb: 2}}
+                                >
+                                    {errorMessage}
+                                </Alert>
+                            </Collapse>
+                            <Collapse in={registerSuccessful}>
+                                <Alert
+                                    severity="success"
+
+                                    sx={{mb: 2}}
+                                >
+                                    Registration Successful.
+                                </Alert>
+                            </Collapse>
+
+
+                        </Box>
+
+
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="/instructor-signup" variant="body2">
