@@ -1,22 +1,53 @@
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { Layout } from './components/Layout';
+import React, {Component} from 'react';
+import {Route, Routes} from 'react-router-dom';
+import {Layout} from './components/Layout';
 import './custom.css';
+import Login from "./pages/Login";
+import AllCourses from "./pages/AllCourses";
+import PrivateRoute from "./authentication/PrivateRoute";
+import {Home} from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import InstructorSignUp from "./pages/InstructorSignUp";
+import CourseDetails from "./pages/CourseDetails";
+import ConsumeContent from "./pages/ConsumeContent";
+import StudentProfilePage from "./pages/StudentProfilePage";
 
 export default class App extends Component {
-  static displayName = App.name;
+    static displayName = App.name;
 
-  render() {
-    return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
-    );
-  }
+
+    render() {
+        return (
+            <Layout>
+                <Routes>
+                    <Route index={true} element={<Home />}/>
+                    <Route path="/login" element={<Login />}/>
+                    <Route path="/signup" element={<SignUp/>} />
+                    <Route path="/instructor-signup" element={<InstructorSignUp/>}/>
+                    <Route path="/all-courses" element={<AllCourses/>}/>
+
+
+                    <Route
+                        path="/profile"
+                        element={
+                            <PrivateRoute route={<StudentProfilePage/>}></PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/course-details/:courseId"
+                        element={
+                            <PrivateRoute route={<CourseDetails />}></PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="course-id"
+                        element={
+                            <PrivateRoute route={<ConsumeContent />}></PrivateRoute>
+                        }
+                    />
+
+                </Routes>
+            </Layout>
+        );
+    }
 }
