@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
+
+
+
+
+
   static displayName = NavMenu.name;
 
   constructor (props) {
@@ -22,6 +27,14 @@ export class NavMenu extends Component {
   }
 
   render() {
+    let username;
+    try {
+      username = localStorage.username;
+    } catch (e) {
+
+    }
+
+
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 main-Navbar" container light>
@@ -31,7 +44,14 @@ export class NavMenu extends Component {
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/login"><label className="navbarLabels">Login</label></NavLink>
+                {username  &&
+                    <NavLink tag={Link} className="text-dark" to="/login"><label className="navbarLabels">Logged in as {username}</label></NavLink>
+                }
+              </NavItem>
+              <NavItem>
+                {!username  &&
+                    <NavLink tag={Link} className="text-dark" to="/login"><label className="navbarLabels">Login</label></NavLink>
+                }
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/all-courses"><label className="navbarLabels">Courses</label></NavLink>

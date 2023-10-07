@@ -9,18 +9,56 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 import './LoginSignUp.css';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import {Navigate, useNavigate} from 'react-router-dom';
 
 export default function Login() {
+    const [errorPresent, setErrorPresent] = React.useState(false);
+    const [loginSuccessful, setLoginSuccessful] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState("");
+
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        setErrorPresent(false);
+
+            axios.post("https://localhost:7240/account/login", {
+                username: data.get('username').toLowerCase(),
+                password: data.get('password')
+            })
+                .then((response) => {
+                    console.log(response);
+                    const token = response.data.token;
+                    const decodedToken = jwt_decode(token);
+                    console.log(decodedToken);
+
+                    localStorage.setItem('jwtToken', JSON.stringify(token));
+                    localStorage.setItem('role', JSON.stringify(decodedToken.role));
+                    localStorage.setItem('username', JSON.stringify(decodedToken.unique_name));
+                    setLoginSuccessful(true);
+                    setTimeout(
+                        () => window.location.assign("/"),
+                        1000
+                    );
+                }).catch(error => {
+                    console.log(error);
+                    setErrorPresent(true);
+                    setErrorMessage(error.response.data);
+            });
+
+
+
     };
+
 
     return (
         <div>
@@ -41,6 +79,7 @@ export default function Login() {
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square
                       style={{background: 'linear-gradient(45deg, rgb(226, 94, 62) 0%, rgb(255, 155, 80) 40%, rgb(255, 187, 92) 100%)'}}>
+
                     <Box
                         sx={{
                             my: 8,
@@ -57,42 +96,81 @@ export default function Login() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                color="warning"
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                color="warning"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary"/>}
-                                label="Remember me"
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{mt: 3, mb: 2}}
-                                className="signButton"
-                            >
-                                Sign In
-                            </Button>
+                        <Box component="form" onSubmit={handleSubmit} sx={{mt: 1}}>
+
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="username"
+                                    label="Username"
+                                    name="username"
+                                    autoComplete="username"
+                                    autoFocus
+                                    color="warning"
+                                />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    color="warning"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="remember" color="primary"/>}
+                                    label="Remember me"
+                                />
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{mt: 3, mb: 2}}
+                                    className="signButton"
+                                >
+                                    Sign In
+                                </Button>
+
+
+
+                            <Box sx={{width: '100%'}}>
+
+                                <Collapse in={errorPresent}>
+                                    <Alert
+                                        severity="error"
+                                        action={
+                                            <IconButton
+                                                aria-label="close"
+                                                color="inherit"
+                                                size="small"
+                                                onClick={() => {
+                                                    setErrorPresent(false);
+                                                }}
+                                            >
+                                                <CloseIcon fontSize="inherit"/>
+                                            </IconButton>
+                                        }
+                                        sx={{mb: 2}}
+                                    >
+                                        {errorMessage}
+                                    </Alert>
+                                </Collapse>
+                                <Collapse in={loginSuccessful}>
+                                    <Alert
+                                        severity="success"
+
+                                        sx={{mb: 2}}
+                                    >
+                                        Login Successful.
+                                    </Alert>
+                                </Collapse>
+
+
+                            </Box>
+
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
