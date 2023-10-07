@@ -14,6 +14,8 @@ namespace OnlineLearningPlatform.Extensions
 				opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
 			});
 
+			services.AddCors();
+
 			services.AddScoped<ITokenService, TokenService>();
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
