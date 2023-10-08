@@ -24,4 +24,8 @@
             background-color: rgb(198, 61, 47);
         }
     }
+
+    .button{
+        gap: 20px;
+    }
 }
