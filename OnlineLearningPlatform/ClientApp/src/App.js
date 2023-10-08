@@ -11,6 +11,7 @@ import InstructorSignUp from "./pages/InstructorSignUp";
 import CourseDetails from "./pages/CourseDetails";
 import ConsumeContent from "./pages/ConsumeContent";
 import StudentProfilePage from "./pages/StudentProfilePage";
+import CourseCRUD from "./pages/CourseCRUD";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -43,6 +44,13 @@ export default class App extends Component {
                         path="course-id"
                         element={
                             <PrivateRoute route={<ConsumeContent />}></PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="add-course"
+                        element={
+                            <PrivateRoute route={<CourseCRUD />}></PrivateRoute>
                         }
                     />
 
