@@ -32,6 +32,8 @@ export default function AccountDropdownMenu() {
                 () => window.location.assign("/"),
                 1000
             );
+        } else if (event.currentTarget.innerText === "Profile") {
+            window.location.assign("/profile")
         }
     };
 

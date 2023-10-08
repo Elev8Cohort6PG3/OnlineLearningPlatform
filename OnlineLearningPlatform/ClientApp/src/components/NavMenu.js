@@ -45,7 +45,7 @@ export class NavMenu extends Component {
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                {username  && <NavLink tag={Link} className="text-dark" to="/login"><label className="navbarLabels">Logged in as {username}</label></NavLink>}
+                {username  && <label className="usernameLabel">Logged in as {username}</label>}
               </NavItem>
               <NavItem style={{marginTop: "26px", marginRight: "15px"}}>
                 {username  && <AccountDropdownMenu/>}

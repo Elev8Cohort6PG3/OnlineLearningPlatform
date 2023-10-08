@@ -17,6 +17,8 @@ import './LoginSignUp.css';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import UserCredentials from "../authentication/UserCredentials";
+import {useEffect} from "react";
 
 export default function Login(props) {
     const [errorPresent, setErrorPresent] = React.useState(false);
@@ -24,6 +26,12 @@ export default function Login(props) {
     const [errorMessage, setErrorMessage] = React.useState("");
 
     let redirectURL = props.redirectURL;
+
+    useEffect(() => {
+        if(UserCredentials().isLoggedIn) {
+            window.location.assign("/");
+        }
+    }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -64,8 +72,6 @@ export default function Login(props) {
             });
 
     };
-
-
     return (
         <div>
             <Grid container component="main" sx={{height: '100vh'}} className="login-main">
