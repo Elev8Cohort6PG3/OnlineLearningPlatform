@@ -24,6 +24,9 @@ export default function CourseAdvancedInfoForm(props) {
     }
 
     const removeFields = (index) => {
+        if (index === 0) {
+            return;
+        }
         let data = [...inputFields];
         data.splice(index, 1)
         setInputFields(data)
@@ -45,10 +48,10 @@ export default function CourseAdvancedInfoForm(props) {
             <Typography variant="h6" gutterBottom>
                 Course Content
             </Typography>
-            <Grid container component="form" onSubmit={submit} spacing={3}>
+            <Grid container component="form" onSubmit={submit} spacing={3} mt={5}>
                 {inputFields.map((input, index) => {
                     return (
-                        <Grid container>
+                        <Grid container ml={5}>
                             <Grid item xs={12} md={6}>
                                 <TextField
                                     required
@@ -88,14 +91,14 @@ export default function CourseAdvancedInfoForm(props) {
                         </Grid>
                     )
                 })}
-                <Grid item xs={12}>
+                <Grid item xs={12} display="flex" justifyContent="center">
                     <Button
                         onClick={addFields}
                         variant="contained"
                         sx={{mt: 3, mb: 2, height: "40px"}}
                         className="nextButton"
                     >
-                        Add <AddIcon fontSize="medium"/>
+                        Add Field <AddIcon fontSize="medium"/>
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
@@ -114,7 +117,7 @@ export default function CourseAdvancedInfoForm(props) {
                     <Button
                         type="submit"
                         variant="contained"
-                        sx={{mt: 3, mb: 2, height: "40px"}}
+                        sx={{mt: 3, mb: 2, ml: 10, height: "40px"}}
                         className="nextButton"
                     >
                         Finalize <ArrowRightIcon fontSize="large"/>
