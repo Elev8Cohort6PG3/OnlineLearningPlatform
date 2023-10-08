@@ -6,5 +6,9 @@ namespace OnlineLearningPlatform.DTOs
 	{
 		[Required] public string Username { get; set; }
 		[Required][StringLength(16, MinimumLength = 4)] public string Password { get; set; }
+
+		//TODO make them required later
+		public string? FirstName { get; set; }
+		public string? LastName { get; set; }
 	}
 }

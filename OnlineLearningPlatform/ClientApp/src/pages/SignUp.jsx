@@ -24,11 +24,8 @@ export default function SignUp() {
     const [registerSuccessful, setRegisterSuccessful] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState("");
 
-
-
-
     useEffect(() => {
-        if(UserCredentials().isLoggedIn) {
+        if (UserCredentials().isLoggedIn) {
             window.location.assign("/");
         }
     }, []);
@@ -39,9 +36,18 @@ export default function SignUp() {
         const data = new FormData(event.currentTarget);
         setErrorPresent(false);
 
-        axios.post("https://localhost:7240/account/register", {
+
+        if (data.get('password') !== data.get('passwordRepeat')) {
+            setErrorPresent(true);
+            setErrorMessage("Passwords must match!");
+            return;
+        }
+
+        axios.post("https://localhost:7240/account/register/member", {
             username: data.get('username').toLowerCase(),
-            password: data.get('password')
+            password: data.get('password'),
+            firstName: data.get('firstName'),
+            lastName: data.get('lastName')
         })
             .then((response) => {
                 console.log(response);
@@ -94,22 +100,30 @@ export default function SignUp() {
                                 <TextField
                                     autoComplete="given-name"
                                     name="firstName"
-                                    required
                                     fullWidth
                                     id="firstName"
-                                    label="First Name"
+                                    label="First Name (optional)"
                                     autoFocus
                                     color="warning"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
                                     fullWidth
                                     id="lastName"
-                                    label="Last Name"
+                                    label="Last Name (optional)"
                                     name="lastName"
                                     autoComplete="family-name"
+                                    color="warning"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    id="email"
+                                    label="Mail Address (optional)"
+                                    name="email"
+                                    autoComplete="username"
                                     color="warning"
                                 />
                             </Grid>
@@ -132,6 +146,18 @@ export default function SignUp() {
                                     label="Password"
                                     type="password"
                                     id="password"
+                                    autoComplete="new-password"
+                                    color="warning"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="passwordRepeat"
+                                    label="Repeat Password"
+                                    type="password"
+                                    id="passwordRepeat"
                                     autoComplete="new-password"
                                     color="warning"
                                 />

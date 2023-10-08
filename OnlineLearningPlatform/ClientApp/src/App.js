@@ -11,6 +11,7 @@ import InstructorSignUp from "./pages/InstructorSignUp";
 import CourseDetails from "./pages/CourseDetails";
 import ConsumeContent from "./pages/ConsumeContent";
 import StudentProfilePage from "./pages/StudentProfilePage";
+import CourseCRUD from "./pages/CourseCRUD";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -30,7 +31,7 @@ export default class App extends Component {
                     <Route
                         path="/profile"
                         element={
-                            <PrivateRoute route={<StudentProfilePage/>}></PrivateRoute>
+                            <PrivateRoute requiredRole="Member" route={<StudentProfilePage/>}></PrivateRoute>
                         }
                     />
                     <Route
@@ -43,6 +44,13 @@ export default class App extends Component {
                         path="course-id"
                         element={
                             <PrivateRoute route={<ConsumeContent />}></PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="add-course"
+                        element={
+                            <PrivateRoute requiredRole="Lecturer" route={<CourseCRUD />}></PrivateRoute>
                         }
                     />
 

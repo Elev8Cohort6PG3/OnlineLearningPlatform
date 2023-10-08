@@ -1,0 +1,7 @@
+.nextButton {
+    background-color: rgb(255, 155, 80)
+}
+
+.nextButton:hover {
+    background-color: rgb(198, 61, 47)
+}
