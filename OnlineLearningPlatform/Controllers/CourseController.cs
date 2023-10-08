@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineLearningPlatform.DTOs;
 using OnlineLearningPlatform.Entities;
+using OnlineLearningPlatform.Extensions;
 using OnlineLearningPlatform.Interfaces;
 
 namespace OnlineLearningPlatform.Controllers
@@ -30,19 +31,21 @@ namespace OnlineLearningPlatform.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<CourseDto>> AddCourse(CourseDto courseDto)
+		public async Task<ActionResult<CourseDto>> AddCourseToUser(CourseDto courseDto)
 		{
+			var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
+			if (user == null) return NotFound();
+
 			var course = new Course()
 			{
 				Title = courseDto.Title,
 				Description = courseDto.Description,
 				Category = courseDto.Category,
-				EnrollmentCount = courseDto.EnrollmentCount,
 				ImageUrl = courseDto.ImageUrl,
-				Videos = new List<Video>(courseDto.Videos)
+				Videos = _mapper.Map<Course>(courseDto).Videos
 			};
 
-			_unitOfWork.CourseRepository.AddCourse(course);
+			_unitOfWork.CourseRepository.AddCourseToUser(course, user);
 
 			if (await _unitOfWork.Complete()) return Ok(_mapper.Map<CourseDto>(course));
 

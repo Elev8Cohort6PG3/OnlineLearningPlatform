@@ -8,9 +8,8 @@ namespace OnlineLearningPlatform.DTOs
 		public string Title { get; set; }
 		public string Description { get; set; }
 		public string Category { get; set; }
-		public int EnrollmentCount { get; set; }
 		public string ImageUrl { get; set; }
-		public List<Video> Videos { get; set; } = new();
+		public List<VideoDto> Videos { get; set; }
 
 	}
 }

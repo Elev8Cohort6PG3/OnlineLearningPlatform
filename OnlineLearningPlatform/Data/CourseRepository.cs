@@ -18,14 +18,22 @@ namespace OnlineLearningPlatform.Data
 			_mapper = mapper;
 		}
 
-		public void AddCourse(Course course)
+		public void AddCourseToUser(Course course, AppUser appUser)
 		{
+			course.AppUser = appUser;
+			course.AppUserId = appUser.Id;
+
 			_dataContext.Courses.Add(course);
 		}
 
 		public void DeleteCourse(Course course)
 		{
 			_dataContext.Courses.Remove(course);
+		}
+
+		public void UpdateCourse(Course course)
+		{
+			throw new NotImplementedException();
 		}
 
 		public async Task<CourseDto> GetCourse(int id)
