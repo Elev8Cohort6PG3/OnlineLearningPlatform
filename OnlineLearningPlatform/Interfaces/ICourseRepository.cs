@@ -8,8 +8,8 @@ namespace OnlineLearningPlatform.Interfaces
 		void AddCourseToUser(Course course, AppUser appUser);
 		void DeleteCourse(Course course);
 		void UpdateCourse(Course course);
-		Task<CourseDto> GetCourse(int id);
-		Task<IEnumerable<CourseDto>> GetCourses();
+		Task<Course> GetCourse(int id);
+		Task<IEnumerable<Course>> GetCourses();
 
 	}
 }
