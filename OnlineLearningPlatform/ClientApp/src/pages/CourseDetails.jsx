@@ -16,8 +16,11 @@ import BookIcon from '@mui/icons-material/Book';
 import CategoryIcon from '@mui/icons-material/Category';
 import Button from "@mui/material/Button";
 import './CourseDetails.css';
+import ViewProfileDialog from "../components/ViewProfileDialog";
 
 export default function CourseDetails() {
+    const [profileDialogOpen, setProfileDialogOpen] = React.useState(false);
+
     let param = useParams();
     let courseId = param.courseId;
 
@@ -31,6 +34,13 @@ export default function CourseDetails() {
         return us.userId === course.instructorId;
     });
 
+    const handleProfileDialogClose = () => {
+        setProfileDialogOpen(false);
+    };
+
+    const handleProfileDialogOpen = () => {
+        setProfileDialogOpen(true);
+    };
 
     let instructorName = instructorUser[0].username;
 
@@ -90,9 +100,9 @@ export default function CourseDetails() {
                                         </ListItemAvatar>
                                         <ListItemText primary="Enrolled Students" secondary={secondaryString}/>
                                     </ListItem>
-                                    <ListItem>
+                                    <ListItem style={{cursor: "pointer"}} onClick={()=> {setProfileDialogOpen(true);}}>
                                         <ListItemAvatar>
-                                            <Avatar sx={{bgcolor: 'rgb(226, 94, 62)'}}>
+                                            <Avatar sx={{bgcolor: 'rgb(226, 94, 62)'}} >
                                                 <Face2Icon/>
                                             </Avatar>
                                         </ListItemAvatar>
@@ -115,6 +125,7 @@ export default function CourseDetails() {
                                         <ListItemText primary="Category" secondary={course.category}/>
                                     </ListItem>
                                     <Button className="enrollButton" variant="contained">Enroll</Button>
+                                    <ViewProfileDialog username={instructorName} open={profileDialogOpen} onClose={handleProfileDialogClose}/>
                                 </List>
 
 
