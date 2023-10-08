@@ -15,7 +15,8 @@ namespace OnlineLearningPlatform.Data
 		}
 
 		public IUserRepository UserRepository => new UserRepository(_context, _mapper);
-		
+		public ICourseRepository CourseRepository => new CourseRepository(_context, _mapper);
+
 
 		public async Task<bool> Complete()
 		{
