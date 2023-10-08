@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.DTOs;
 using OnlineLearningPlatform.Entities;
 using OnlineLearningPlatform.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace OnlineLearningPlatform.Data
 {
@@ -36,19 +37,35 @@ namespace OnlineLearningPlatform.Data
 			throw new NotImplementedException();
 		}
 
-		public async Task<CourseDto> GetCourse(int id)
+		public async Task<Course> GetCourse(int id)
 		{
-			return _mapper.Map<CourseDto>(await _dataContext.Courses.FindAsync(id));
+			//return _mapper.Map<CourseDto>(await _dataContext.Courses.FindAsync(id));
+			
+			var query = _dataContext.Courses.AsQueryable();
+
+			return await query
+				.Include(v => v.Videos)
+				.Include(u => u.AppUserId)
+				.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+			
 		}
 
-		public async Task<IEnumerable<CourseDto>> GetCourses()
+		public async Task<IEnumerable<Course>> GetCourses()
 		{
-			var query = _dataContext.Courses.AsQueryable();
+			/*var query = _dataContext.Courses.AsQueryable();
 			var courses = query
 				.Include(v => v.Videos)
 				.ProjectTo<CourseDto>(_mapper.ConfigurationProvider);
 
-			return await courses.ToListAsync();
+			return await courses.ToListAsync();*/
+
+			var query = _dataContext.Courses.AsQueryable();
+
+			return await query
+				.Include(v => v.Videos)
+				.Include(u => u.AppUserId)
+				.ToListAsync();
 		}
 	}
 }

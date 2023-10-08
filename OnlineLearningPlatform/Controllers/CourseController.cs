@@ -19,22 +19,34 @@ namespace OnlineLearningPlatform.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourses()
+		public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
 		{
-			return Ok(await _unitOfWork.CourseRepository.GetCourses());
+			//return Ok(await _unitOfWork.CourseRepository.GetCourses());
+
+			var courses = await _unitOfWork.CourseRepository.GetCourses();
+
+			if (courses == null) return NotFound("Failed to find courses");
+			
+			return Ok(courses);
 		}
 
 		[HttpGet("{id:int}")]
-		public async Task<ActionResult<CourseDto>> GetCourse(int id)
+		public async Task<ActionResult<Course>> GetCourse(int id)
 		{
-			return Ok(await _unitOfWork.CourseRepository.GetCourse(id));
+			//return Ok(await _unitOfWork.CourseRepository.GetCourse(id));
+
+			var course = await _unitOfWork.CourseRepository.GetCourse(id);
+
+			if (course == null) return NotFound("Failed to find the course");
+
+			return Ok(course);
 		}
 
 		[HttpPost]
 		public async Task<ActionResult<Course>> AddCourseToUser(CourseDto courseDto)
 		{
 			var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
-			if (user == null) return NotFound();
+			if (user == null) return NotFound("User is not exist");
 
 			var course = new Course()
 			{
