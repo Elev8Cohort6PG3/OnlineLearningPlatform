@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 export default function CourseBasicInfoForm(props) {
-    const {courseTitle, setCourseTitle, courseDescription, setCourseDescription, courseCategory, setCourseCategory, activeStep, setActiveStep} = props;
+    const {courseTitle, setCourseTitle, courseDescription, setCourseDescription, courseCategory, setCourseCategory, imageURL, setImageURL, activeStep, setActiveStep} = props;
     const handleSubmit = (event) => {
         event.preventDefault();
         setActiveStep(1);
@@ -57,6 +57,19 @@ export default function CourseBasicInfoForm(props) {
                         variant="standard"
                         value={courseCategory}
                         onChange={(e)=>{setCourseCategory(e.target.value)}}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        required
+                        id="imageURL"
+                        name="imageURL"
+                        label="Image URL"
+                        fullWidth
+                        autoComplete="URL"
+                        variant="standard"
+                        value={imageURL}
+                        onChange={(e)=>{setImageURL(e.target.value)}}
                     />
                 </Grid>
                 <Grid sx={{display: "flex", justifyContent: "flex-end"}} item xs={12}>

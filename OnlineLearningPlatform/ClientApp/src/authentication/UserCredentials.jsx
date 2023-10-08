@@ -12,7 +12,7 @@ export default function UserCredentials() {
             isLoggedIn: true,
             username: localStorage.username.slice(1, -1),
             role: localStorage.role.slice(1, -1),
-            token: localStorage.jwtToken
+            token: localStorage.jwtToken.slice(1, -1)
         }
         return user;
     }
