@@ -15,7 +15,8 @@ import Collapse from "@mui/material/Collapse";
 import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import UserCredentials from "../authentication/UserCredentials";
 
 export default function SignUp() {
 
@@ -23,7 +24,16 @@ export default function SignUp() {
     const [registerSuccessful, setRegisterSuccessful] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState("");
 
-    const navigate = useNavigate();
+
+
+
+    useEffect(() => {
+        if(UserCredentials().isLoggedIn) {
+            window.location.assign("/");
+        }
+    }, []);
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);

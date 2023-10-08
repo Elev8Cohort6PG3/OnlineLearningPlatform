@@ -9,8 +9,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import './LoginSignUp.css';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
+import {useEffect} from "react";
+import UserCredentials from "../authentication/UserCredentials";
 
 export default function InstructorSignUp() {
+
+    useEffect(() => {
+        if(UserCredentials().isLoggedIn) {
+            window.location.assign("/");
+        }
+    }, []);
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
