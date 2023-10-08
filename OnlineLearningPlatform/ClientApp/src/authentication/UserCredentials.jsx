@@ -1,4 +1,3 @@
-
 export default function UserCredentials() {
     //returns user credentials as a user object
     let user = {
@@ -8,17 +7,15 @@ export default function UserCredentials() {
         token: "User Logged Out"
     }
 
-
-        if(!(localStorage.username === undefined)) {
-            user = {
-                isLoggedIn: true,
-                username: localStorage.unique_name,
-                role: localStorage.role,
-                token: localStorage.jwtToken
-            }
-            return user;
+    if (!(localStorage.username === undefined)) {
+        user = {
+            isLoggedIn: true,
+            username: localStorage.username.slice(1, -1),
+            role: localStorage.role.slice(1, -1),
+            token: localStorage.jwtToken
         }
-
+        return user;
+    }
 
     return user;
 }
