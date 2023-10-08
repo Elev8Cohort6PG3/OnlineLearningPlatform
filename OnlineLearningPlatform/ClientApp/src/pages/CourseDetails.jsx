@@ -31,7 +31,6 @@ export default function CourseDetails() {
         return us.userId === course.instructorId;
     });
 
-    console.log(instructorUser);
 
     let instructorName = instructorUser[0].username;
 

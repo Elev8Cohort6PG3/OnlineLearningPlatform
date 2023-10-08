@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
 
 export default function UserCredentials() {
+    //returns user credentials as a user object
     let user = {
         isLoggedIn: false,
         username: "User Logged Out",
