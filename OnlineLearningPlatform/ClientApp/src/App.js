@@ -5,7 +5,7 @@ import './custom.css';
 import Login from "./pages/Login";
 import AllCourses from "./pages/AllCourses";
 import PrivateRoute from "./authentication/PrivateRoute";
-import {Home} from "./pages/Home";
+import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import InstructorSignUp from "./pages/InstructorSignUp";
 import CourseDetails from "./pages/CourseDetails";
