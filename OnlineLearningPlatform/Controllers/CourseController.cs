@@ -39,7 +39,7 @@ namespace OnlineLearningPlatform.Controllers
 				Category = courseDto.Category,
 				EnrollmentCount = courseDto.EnrollmentCount,
 				ImageUrl = courseDto.ImageUrl,
-				Videos = new List<Video>()
+				Videos = new List<Video>(courseDto.Videos)
 			};
 
 			_unitOfWork.CourseRepository.AddCourse(course);
