@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 using OnlineLearningPlatform.Data;
 using OnlineLearningPlatform.Interfaces;
 using OnlineLearningPlatform.Services;
@@ -13,6 +14,11 @@ namespace OnlineLearningPlatform.Extensions
 			{
 				opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
 			});
+
+			/*services.ConfigureHttpJsonOptions(opt =>
+			{
+				opt.SerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+			});*/
 
 			services.AddCors();
 

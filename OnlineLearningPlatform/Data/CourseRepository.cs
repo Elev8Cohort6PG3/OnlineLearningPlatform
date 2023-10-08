@@ -32,10 +32,11 @@ namespace OnlineLearningPlatform.Data
 			_dataContext.Courses.Remove(course);
 		}
 
-		public void UpdateCourse(Course course)
+		/*public async Task<Course> UpdateCourse(CourseUpdateDto courseUpdateDto)
 		{
-			throw new NotImplementedException();
-		}
+			//await _dataContext.Courses.FindAsync(courseUpdateDto.Id);
+
+		}*/
 
 		public async Task<Course> GetCourse(int id)
 		{
