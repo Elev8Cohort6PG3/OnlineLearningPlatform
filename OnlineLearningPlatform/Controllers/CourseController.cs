@@ -31,7 +31,7 @@ namespace OnlineLearningPlatform.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<CourseDto>> AddCourseToUser(CourseDto courseDto)
+		public async Task<ActionResult<Course>> AddCourseToUser(CourseDto courseDto)
 		{
 			var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 			if (user == null) return NotFound();
@@ -47,7 +47,7 @@ namespace OnlineLearningPlatform.Controllers
 
 			_unitOfWork.CourseRepository.AddCourseToUser(course, user);
 
-			if (await _unitOfWork.Complete()) return Ok(_mapper.Map<CourseDto>(course));
+			if (await _unitOfWork.Complete()) return Ok(course);
 
 			return BadRequest("Failed to create course");
 		}
