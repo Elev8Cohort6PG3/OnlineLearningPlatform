@@ -21,9 +21,12 @@ namespace OnlineLearningPlatform.Controllers
 			_mapper = mapper;
 		}
 
-		[HttpPost("register")]
-		public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+		[HttpPost("register/{role}")]
+		public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto, string role)
 		{
+			if (!role.Equals("member") && !role.Equals("lecturer"))
+				return BadRequest("You must register as a member or lecturer only");
+
 			if (await IsUserExists(registerDto.Username)) return BadRequest("Username is taken");
 
 			var user = _mapper.Map<AppUser>(registerDto);
@@ -34,7 +37,7 @@ namespace OnlineLearningPlatform.Controllers
 
 			if (!result.Succeeded) return BadRequest(result.Errors);
 
-			var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+			var roleResult = await _userManager.AddToRoleAsync(user, role);
 
 			if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
 
@@ -44,7 +47,7 @@ namespace OnlineLearningPlatform.Controllers
 				Token = await _tokenService.CreateToken(user)
 			});
 		}
-
+		
 		[HttpPost("login")]
 		public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
 		{
