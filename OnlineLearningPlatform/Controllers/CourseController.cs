@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using OnlineLearningPlatform.Data;
 using OnlineLearningPlatform.DTOs;
 using OnlineLearningPlatform.Entities;
 using OnlineLearningPlatform.Extensions;
@@ -62,6 +63,21 @@ namespace OnlineLearningPlatform.Controllers
 			if (await _unitOfWork.Complete()) return Ok(course);
 
 			return BadRequest("Failed to create course");
+		}
+
+
+		[HttpPut]
+		public async Task<ActionResult> UpdateCourse(CourseUpdateDto courseUpdateDto)
+		{
+			var course = await _unitOfWork.CourseRepository.GetCourse(courseUpdateDto.Id);
+
+			if (course == null) return NotFound("Failed to find course");
+
+			_mapper.Map(courseUpdateDto, course);
+
+			if (await _unitOfWork.Complete()) return NoContent();
+
+			return BadRequest("Failed to update course");
 		}
 
 		[HttpDelete("delete-course/{courseId:int}")]
