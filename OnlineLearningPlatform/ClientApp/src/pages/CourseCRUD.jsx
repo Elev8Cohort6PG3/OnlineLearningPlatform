@@ -9,6 +9,7 @@ import CourseBasicInfoForm from "../components/CourseBasicInfoForm";
 import CourseAdvancedInfoForm from "../components/CourseAdvancedInfoForm";
 import CoursePublishForm from "../components/CoursePublishForm";
 import {useState} from "react";
+import '../css/courseCRUD.css';
 
 const steps = ['Course Information', 'Course Content', 'Finalize'];
 
@@ -59,7 +60,22 @@ export default function CourseCRUD() {
                     </Typography>
                     <Stepper activeStep={activeStep} sx={{pt: 3, pb: 5}}>
                         {steps.map((label) => (
-                            <Step key={label}>
+                            <Step sx={{
+                                '& .MuiStepLabel-root .Mui-completed': {
+                                    color: 'rgb(226, 94, 62)', // circle color (COMPLETED)
+                                },
+                                '& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel':
+                                    {
+                                        color: 'rgb(226, 94, 62)', // Just text label (COMPLETED)
+                                    },
+                                '& .MuiStepLabel-root .Mui-active': {
+                                    color: 'rgb(255, 155, 80)', // circle color (ACTIVE)
+                                },
+                                '& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel':
+                                    {
+                                        color: 'rgb(255, 155, 80)', // Just text label (ACTIVE)
+                                    },
+                            }} key={label}>
                                 <StepLabel>{label}</StepLabel>
                             </Step>
                         ))}
@@ -67,7 +83,7 @@ export default function CourseCRUD() {
                     {activeStep === steps.length ? (
                         <React.Fragment>
                             <Typography variant="h5" gutterBottom>
-                               Completed Course CRUD
+                                Completed Course CRUD
                             </Typography>
                             <Typography variant="subtitle1">
                                 Information Saved.

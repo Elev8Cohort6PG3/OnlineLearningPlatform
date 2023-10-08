@@ -70,10 +70,10 @@ export default function CoursePublishForm(props) {
                         Back <ArrowLeftIcon fontSize="large"/>
                     </Button>
                 </Grid>
-                <Grid sx={{display: "flex", justifyContent: "flex-end"}} item xs={12}>
+                <Grid  item xs={6}>
                     <Button
                         variant="contained"
-                        sx={{mt: 3, mb: 2, height: "40px"}}
+                        sx={{mt: 3, mb: 2, ml: 10, height: "40px"}}
                         className="nextButton"
                         onClick={(e)=>{handlePublish(e)}}
                     >
