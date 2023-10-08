@@ -18,8 +18,9 @@ export default function CourseCRUD() {
     const [courseTitle, setCourseTitle] = React.useState("");
     const [courseDescription, setCourseDescription] = React.useState("");
     const [courseCategory, setCourseCategory] = React.useState("");
+    const [imageURL, setImageURL] = React.useState("");
     const [inputFields, setInputFields] = useState([
-        {videoURL: '', description: ''}
+        {url: '', description: ''}
     ]);
 
 
@@ -33,7 +34,9 @@ export default function CourseCRUD() {
                                             courseCategory={courseCategory}
                                             setCourseCategory={setCourseCategory}
                                             activeStep={activeStep}
-                                            setActiveStep={setActiveStep}/>;
+                                            setActiveStep={setActiveStep}
+                                            imageURL={imageURL}
+                                            setImageURL={setImageURL}/>;
             case 1:
                 return <CourseAdvancedInfoForm inputFields={inputFields}
                                                setInputFields={setInputFields}
@@ -45,6 +48,7 @@ export default function CourseCRUD() {
                                           courseCategory={courseCategory}
                                           inputFields={inputFields}
                                           setActiveStep={setActiveStep}
+                                          imageURL={imageURL}
                 />;
             default:
                 throw new Error('Unknown step');

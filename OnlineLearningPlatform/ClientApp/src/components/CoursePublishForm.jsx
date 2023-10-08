@@ -8,12 +8,43 @@ import Button from "@mui/material/Button";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import PublishIcon from '@mui/icons-material/Publish';
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import UserCredentials from "../authentication/UserCredentials";
+import axios from "axios";
 
 export default function CoursePublishForm(props) {
-    const {courseTitle, courseDescription, courseCategory, inputFields, setActiveStep} = props;
+    const {courseTitle, courseDescription, courseCategory, inputFields, setActiveStep, imageURL} = props;
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        let postData = {
+            Title: courseTitle,
+            Description: courseDescription,
+            Category: courseCategory,
+            imageUrl: imageURL,
+            Videos: inputFields
+        };
+
+        let axiosConfig = {
+            headers: {
+                'Authorization': `bearer ${UserCredentials().token}`,
+            }
+        };
+
+        axios.post('https://localhost:7240/course', postData, axiosConfig)
+            .then((res) => {
+                console.log("RESPONSE RECEIVED: ", res);
+            })
+            .catch((err) => {
+                console.log("AXIOS ERROR: ", err);
+            })
+    };
+
 
     const handlePublish = (e) => {
         e.preventDefault();
+        handleSubmit(e);
         setActiveStep(3);
     }
 

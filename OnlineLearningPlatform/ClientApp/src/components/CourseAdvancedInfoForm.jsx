@@ -19,7 +19,7 @@ export default function CourseAdvancedInfoForm(props) {
     }
 
     const addFields = () => {
-        let newField = {videoURL: '', description: ''};
+        let newField = {url: '', description: ''};
         setInputFields([...inputFields, newField]);
     }
 
@@ -55,13 +55,13 @@ export default function CourseAdvancedInfoForm(props) {
                             <Grid item xs={12} md={6}>
                                 <TextField
                                     required
-                                    name="videoURL"
-                                    id="videoURL"
+                                    name="url"
+                                    id="url"
                                     label="video URL"
 
                                     autoComplete="URL"
                                     variant="standard"
-                                    value={input.videoURL}
+                                    value={input.url}
                                     onChange={event => handleFormChange(index, event)}
                                 />
                             </Grid>
