@@ -31,7 +31,7 @@ export default class App extends Component {
                     <Route
                         path="/profile"
                         element={
-                            <PrivateRoute route={<StudentProfilePage/>}></PrivateRoute>
+                            <PrivateRoute requiredRole="Member" route={<StudentProfilePage/>}></PrivateRoute>
                         }
                     />
                     <Route
@@ -50,7 +50,7 @@ export default class App extends Component {
                     <Route
                         path="add-course"
                         element={
-                            <PrivateRoute route={<CourseCRUD />}></PrivateRoute>
+                            <PrivateRoute requiredRole="Lecturer" route={<CourseCRUD />}></PrivateRoute>
                         }
                     />
 
