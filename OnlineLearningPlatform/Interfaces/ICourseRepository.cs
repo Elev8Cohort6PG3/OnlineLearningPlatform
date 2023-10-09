@@ -1,4 +1,5 @@
-﻿using OnlineLearningPlatform.DTOs;
+﻿using System.Collections;
+using OnlineLearningPlatform.DTOs;
 using OnlineLearningPlatform.Entities;
 
 namespace OnlineLearningPlatform.Interfaces
@@ -8,8 +9,8 @@ namespace OnlineLearningPlatform.Interfaces
 		void AddCourseToUser(Course course, AppUser appUser);
 		void DeleteCourse(Course course);
 		//Task<Course> UpdateCourse(CourseUpdateDto courseUpdateDto);
-		Task<CourseDto> GetCourse(int id);
-		Task<IEnumerable<CourseDto>> GetCourses();
+		Task<CourseWithUserAndVideoDto> GetCourse(int id);
+		Task<IEnumerable<CourseWithUserAndVideoDto>> GetCourses();
 
 	}
 }

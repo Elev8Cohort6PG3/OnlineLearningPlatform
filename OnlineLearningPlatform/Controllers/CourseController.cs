@@ -20,7 +20,7 @@ namespace OnlineLearningPlatform.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+		public async Task<ActionResult> GetCourses()
 		{
 			//return Ok(await _unitOfWork.CourseRepository.GetCourses());
 
