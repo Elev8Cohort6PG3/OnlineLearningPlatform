@@ -11,6 +11,7 @@ namespace OnlineLearningPlatform.Interfaces
 		Task<CourseWithUserAndVideoDto> GetCourse(int id);
 		Task<IEnumerable<CourseWithUserAndVideoDto>> GetCourses();
 		Task<IEnumerable<CourseWithoutUserDto>> GetAllCoursesForLecturer(string username);
+		Task<Course> GetCourseForModification(int courseId);
 
 	}
 }
