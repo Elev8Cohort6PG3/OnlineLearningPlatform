@@ -5,7 +5,7 @@ namespace OnlineLearningPlatform.DTOs
 	public class CourseWithUserAndVideoDto
 	{
 		public CourseWithoutVideoDto CourseWithoutVideoDto { get; set; }
-		public VideoDto VideoDto { get; set; } 
+		public List<VideoDto> VideoDto { get; set; } = new();
 		public string userName { get; set; }
 
 	}

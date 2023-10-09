@@ -14,7 +14,7 @@ namespace OnlineLearningPlatform.Data
 		private readonly DataContext _dataContext;
 		private readonly IMapper _mapper;
 
-		public CourseRepository(DataContext dataContext, IMapper mapper )
+		public CourseRepository(DataContext dataContext, IMapper mapper)
 		{
 			_dataContext = dataContext;
 			_mapper = mapper;
@@ -62,21 +62,43 @@ namespace OnlineLearningPlatform.Data
 
 			return await secondQuery.FirstOrDefaultAsync(x => x.Id == id);*/
 
+			/*
 			var query = from Course in _dataContext.Set<Course>()
 				join AppUser in _dataContext.Set<AppUser>()
 					on Course.AppUserId equals AppUser.Id
 				join Video in _dataContext.Set<Video>()
-					on Course.Id equals Video.CourseId
+					on Course.Id equals Video.CourseId into Grouping
 				select new CourseWithUserAndVideoDto()
 				{
 					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
-					/*VideoDtos = new List<VideoDto>(_mapper.Map<VideoDto[]>(Video)),*/
-					VideoDto = _mapper.Map<VideoDto>(Video),
+					/*VideoDtos = new List<VideoDto>(_mapper.Map<VideoDto[]>(Video)),#1#
+					VideoDto = Grouping.ToList(),
 					userName = AppUser.UserName
 				};
 
-			return await query.FirstAsync(x => x.CourseWithoutVideoDto.Id == id);
+			var a = await query.ToListAsync();
+			return a[id];
 
+			//return await query.FirstOrDefaultAsync(x => x.CourseWithoutVideoDto.Id == id);*/
+
+			var query = from Course in _dataContext.Set<Course>()
+				join AppUser in _dataContext.Set<AppUser>()
+					on Course.AppUserId equals AppUser.Id
+					where Course.Id == id
+				select new CourseWithUserAndVideoDto()
+				{
+					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
+					userName = AppUser.UserName,
+					VideoDto = Course.Videos.Select(video => new VideoDto()
+					{
+						Id = video.Id,
+						Url = video.Url,
+						Description = video.Description
+
+					}).ToList()
+				};
+
+			return await query.FirstOrDefaultAsync();
 		}
 
 		public async Task<IEnumerable<CourseWithUserAndVideoDto>> GetCourses()
@@ -95,21 +117,39 @@ namespace OnlineLearningPlatform.Data
 				/*.Include(u => u.AppUserId)#1#
 				.ToListAsync();*/
 
-			var query = from Course in _dataContext.Set<Course>()
+			/*var query = from Course in _dataContext.Set<Course>()
 				join AppUser in _dataContext.Set<AppUser>()
 					on Course.AppUserId equals AppUser.Id
 				join Video in _dataContext.Set<Video>()
-					on Course.Id equals Video.CourseId
+					on Course.Id equals Video.CourseId into Grouping
 				select new CourseWithUserAndVideoDto()
 				{
 					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
-					/*VideoDtos = new List<VideoDto>(_mapper.Map<VideoDto[]>(Video)),*/
-					VideoDto = _mapper.Map<VideoDto>(Video),
+					/*VideoDtos = new List<VideoDto>(_mapper.Map<VideoDto[]>(Video)),#1#
+					VideoDto = Grouping.ToList(),
 					userName = AppUser.UserName
 				};
 
 
 			//query.Include(c => c.Course.Videos);
+
+			return await query.ToListAsync();*/
+
+			var query = from Course in _dataContext.Set<Course>()
+				join AppUser in _dataContext.Set<AppUser>()
+					on Course.AppUserId equals AppUser.Id
+				select new CourseWithUserAndVideoDto()
+				{
+					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
+					userName = AppUser.UserName,
+					VideoDto = Course.Videos.Select(video => new VideoDto()
+					{
+						Id = video.Id,
+						Url = video.Url,
+						Description = video.Description
+
+					}).ToList()
+				};
 
 			return await query.ToListAsync();
 		}
