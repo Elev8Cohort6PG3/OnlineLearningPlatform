@@ -38,42 +38,46 @@ namespace OnlineLearningPlatform.Data
 
 		}*/
 
-		public async Task<Course> GetCourse(int id)
+		public async Task<CourseDto> GetCourse(int id)
 		{
 			//return _mapper.Map<CourseDto>(await _dataContext.Courses.FindAsync(id));
+
+			//return await _dataContext.Courses.Include(v => v.Videos).FirstOrDefaultAsync(x => x.Id == id);
+
+			return _mapper.Map<CourseDto>( await _dataContext.Courses.Include(v => v.Videos).FirstOrDefaultAsync(x => x.Id == id));
 
 			/*var query = _dataContext.Courses.AsQueryable();
 
 			return await query
 				.Include(v => v.Videos)
-				.Include(u => u.AppUserId)
+				/*.Include(u => u.AppUserId)#1#
 				.Where(x => x.Id == id).FirstOrDefaultAsync();*/
 
-			var query = _dataContext.Courses.AsQueryable();
+			/*var query = _dataContext.Courses.AsQueryable();
 
 			var firstQuery = query.Include(v => v.Videos);
 			var secondQuery = firstQuery.Include(u => u.AppUserId);
 
-			return await secondQuery.FirstOrDefaultAsync(x => x.Id == id);
+			return await secondQuery.FirstOrDefaultAsync(x => x.Id == id);*/
 
 
 		}
 
-		public async Task<IEnumerable<Course>> GetCourses()
+		public async Task<IEnumerable<CourseDto>> GetCourses()
 		{
-			/*var query = _dataContext.Courses.AsQueryable();
+			var query = _dataContext.Courses.AsQueryable();
 			var courses = query
 				.Include(v => v.Videos)
 				.ProjectTo<CourseDto>(_mapper.ConfigurationProvider);
 
-			return await courses.ToListAsync();*/
+			return await courses.ToListAsync();
 
-			var query = _dataContext.Courses.AsQueryable();
+			/*var query = _dataContext.Courses.AsQueryable();
 
 			return await query
 				.Include(v => v.Videos)
-				.Include(u => u.AppUserId)
-				.ToListAsync();
+				/*.Include(u => u.AppUserId)#1#
+				.ToListAsync();*/
 		}
 	}
 }
