@@ -41,15 +41,22 @@ namespace OnlineLearningPlatform.Data
 		public async Task<Course> GetCourse(int id)
 		{
 			//return _mapper.Map<CourseDto>(await _dataContext.Courses.FindAsync(id));
-			
-			var query = _dataContext.Courses.AsQueryable();
+
+			/*var query = _dataContext.Courses.AsQueryable();
 
 			return await query
 				.Include(v => v.Videos)
 				.Include(u => u.AppUserId)
-				.Where(x => x.Id == id).FirstOrDefaultAsync();
+				.Where(x => x.Id == id).FirstOrDefaultAsync();*/
 
-			
+			var query = _dataContext.Courses.AsQueryable();
+
+			var firstQuery = query.Include(v => v.Videos);
+			var secondQuery = firstQuery.Include(u => u.AppUserId);
+
+			return await secondQuery.FirstOrDefaultAsync(x => x.Id == id);
+
+
 		}
 
 		public async Task<IEnumerable<Course>> GetCourses()
