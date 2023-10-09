@@ -96,6 +96,8 @@ namespace OnlineLearningPlatform.Controllers
 
 			if (course == null) return NotFound("Failed to find course");
 
+			course.Videos = new List<Video>();
+
 			_mapper.Map(courseUpdateDto, course);
 
 			if (await _unitOfWork.Complete()) return NoContent();
