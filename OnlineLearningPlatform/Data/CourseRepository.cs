@@ -33,12 +33,6 @@ namespace OnlineLearningPlatform.Data
 			_dataContext.Courses.Remove(course);
 		}
 
-		/*public async Task<Course> UpdateCourse(CourseUpdateDto courseUpdateDto)
-		{
-			//await _dataContext.Courses.FindAsync(courseUpdateDto.Id);
-
-		}*/
-
 		public async Task<CourseWithUserAndVideoDto> GetCourse(int id)
 		{
 			var query = from Course in _dataContext.Set<Course>()
@@ -64,6 +58,23 @@ namespace OnlineLearningPlatform.Data
 				{
 					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
 					userName = AppUser.UserName,
+					VideoDto = Course.Videos
+						.Select(video => _mapper.Map<VideoDto>(video))
+						.ToList()
+				};
+
+			return await query.ToListAsync();
+		}
+
+		public async Task<IEnumerable<CourseWithoutUserDto>> GetAllCoursesForLecturer(string username)
+		{
+			var query = from Course in _dataContext.Set<Course>()
+				join AppUser in _dataContext.Set<AppUser>()
+					on Course.AppUserId equals AppUser.Id
+					where AppUser.UserName == username
+				select new CourseWithoutUserDto()
+				{
+					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
 					VideoDto = Course.Videos
 						.Select(video => _mapper.Map<VideoDto>(video))
 						.ToList()

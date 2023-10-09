@@ -8,9 +8,9 @@ namespace OnlineLearningPlatform.Interfaces
 	{
 		void AddCourseToUser(Course course, AppUser appUser);
 		void DeleteCourse(Course course);
-		//Task<Course> UpdateCourse(CourseUpdateDto courseUpdateDto);
 		Task<CourseWithUserAndVideoDto> GetCourse(int id);
 		Task<IEnumerable<CourseWithUserAndVideoDto>> GetCourses();
+		Task<IEnumerable<CourseWithoutUserDto>> GetAllCoursesForLecturer(string username);
 
 	}
 }
