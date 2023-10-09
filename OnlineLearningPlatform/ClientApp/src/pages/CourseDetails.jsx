@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {courses, enrollments, users} from "../MockData";
 import {useParams} from "react-router-dom";
 import Person2Icon from '@mui/icons-material/Person2';
 import List from '@mui/material/List';
@@ -17,22 +16,32 @@ import CategoryIcon from '@mui/icons-material/Category';
 import Button from "@mui/material/Button";
 import './CourseDetails.css';
 import ViewProfileDialog from "../components/ViewProfileDialog";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function CourseDetails() {
     const [profileDialogOpen, setProfileDialogOpen] = React.useState(false);
-
     let param = useParams();
     let courseId = param.courseId;
 
-    let course = courses[courseId];
+    const [course, setCourse] = useState(null);
+    const [instructor, setInstructor] = useState(null);
 
-    let currentCourseEnrollments = enrollments.filter(function (en) {
-        return en.courseId == courseId;
-    });
 
-    let instructorUser = users.filter(function (us) {
-        return us.userId === course.instructorId;
-    });
+    useEffect(() => {
+        axios.get(`https://localhost:7240/course/${courseId}`, {}).then((response) => {
+                setCourse(response.data);
+                console.log(response.data);
+
+                axios.get(`https://localhost:7240/users/${response.data.userName}`, {}).then((response) => {
+                        setInstructor(response.data);
+                        console.log(response.data);
+                    }
+                )
+            }
+        )
+    }, []);
+
 
     const handleProfileDialogClose = () => {
         setProfileDialogOpen(false);
@@ -42,15 +51,11 @@ export default function CourseDetails() {
         setProfileDialogOpen(true);
     };
 
-    let instructorName = instructorUser[0].username;
-
-    let secondaryString = currentCourseEnrollments.length + " Students Enrolled";
+    let enrolledStudentsString = "10" + " Students Enrolled";
 
     return (
 
         <Box sx={{display: 'flex'}}>
-
-
             <Box
                 component="main"
                 sx={{
@@ -63,7 +68,6 @@ export default function CourseDetails() {
                     overflow: 'auto',
                 }}
             >
-
                 <Container className="course-details-main" maxWidth="lg" sx={{mt: 4, mb: 4}}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={8} lg={9}>
@@ -76,8 +80,8 @@ export default function CourseDetails() {
 
                                 }}
                             >
-
-                                <img style={{maxHeight: "40vh"}} src={course.imageUrl}/>
+                                {course &&
+                                    <img style={{maxHeight: "40vh"}} src={course.courseWithoutVideoDto.imageUrl}/>}
 
                             </Paper>
                         </Grid>
@@ -90,7 +94,6 @@ export default function CourseDetails() {
 
                                 }}
                             >
-
                                 <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
                                     <ListItem>
                                         <ListItemAvatar>
@@ -98,15 +101,18 @@ export default function CourseDetails() {
                                                 <Person2Icon/>
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary="Enrolled Students" secondary={secondaryString}/>
+                                        <ListItemText primary="Enrolled Students" secondary={enrolledStudentsString}/>
                                     </ListItem>
-                                    <ListItem style={{cursor: "pointer"}} onClick={()=> {setProfileDialogOpen(true);}}>
+                                    <ListItem style={{cursor: "pointer"}} onClick={() => {
+                                        setProfileDialogOpen(true);
+                                    }}>
                                         <ListItemAvatar>
-                                            <Avatar sx={{bgcolor: 'rgb(226, 94, 62)'}} >
+                                            <Avatar sx={{bgcolor: 'rgb(226, 94, 62)'}}>
                                                 <Face2Icon/>
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary="Instructor" secondary={instructorName}/>
+                                        {instructor &&
+                                            <ListItemText primary="Instructor" secondary={instructor.userName}/>}
                                     </ListItem>
                                     <ListItem>
                                         <ListItemAvatar>
@@ -122,20 +128,20 @@ export default function CourseDetails() {
                                                 <CategoryIcon/>
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary="Category" secondary={course.category}/>
+                                        {course && <ListItemText primary="Category"
+                                                                 secondary={course.courseWithoutVideoDto.category}/>}
                                     </ListItem>
                                     <Button className="enrollButton" variant="contained">Enroll</Button>
-                                    <ViewProfileDialog username={instructorName} open={profileDialogOpen} onClose={handleProfileDialogClose}/>
+                                    {instructor &&
+                                        <ViewProfileDialog username={instructor.userName} open={profileDialogOpen}
+                                                           onClose={handleProfileDialogClose}/>}
                                 </List>
-
-
                             </Paper>
                         </Grid>
 
                         <Grid item xs={12}>
                             <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
-                                <p>{course.description}</p>
-
+                                {course && <p>{course.courseWithoutVideoDto.description}</p>}
                             </Paper>
                         </Grid>
                     </Grid>
