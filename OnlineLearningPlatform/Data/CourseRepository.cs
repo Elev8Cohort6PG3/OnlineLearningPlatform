@@ -87,6 +87,7 @@ namespace OnlineLearningPlatform.Data
 		{
 			return await _dataContext.Courses
 				.Where(c => c.Id == courseId)
+				.Include(v => v.Videos)
 				.FirstOrDefaultAsync();
 		}
 	}
