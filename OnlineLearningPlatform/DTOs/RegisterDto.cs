@@ -10,5 +10,6 @@ namespace OnlineLearningPlatform.DTOs
 		//TODO make them required later
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }
+		public string? Email { get; set; }
 	}
 }
