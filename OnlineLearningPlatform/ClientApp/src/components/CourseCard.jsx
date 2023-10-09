@@ -8,6 +8,7 @@ import * as React from "react";
 
 export default function CourseCard(props) {
     let course = props.courseInfo;
+    let courseBasics = course.courseWithoutVideoDto;
 
     return (
         <Grid item key={course} xs={12} sm={6} md={3}>
@@ -20,7 +21,7 @@ export default function CourseCard(props) {
                     backdropFilter: 'blur(100px)'
                 }}
                 onClick={() => {
-                    window.location.assign(`/course-details/${course.courseId}`)
+                    window.location.assign(`/course-details/${courseBasics.id}`)
                 }}
             >
                 <CardMedia
@@ -29,14 +30,15 @@ export default function CourseCard(props) {
                         // 16:9
                         pt: '56.25%',
                     }}
-                    image={course.imageUrl}
+                    image={courseBasics.imageUrl}
                 />
                 <CardContent sx={{flexGrow: 1}}>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {course.title}
+                        {courseBasics.title}
                     </Typography>
-                    <Typography>
-                        {course.description}
+                    <Typography maxWidth={350}
+                                style={{textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap"}}>
+                        {courseBasics.description}
                     </Typography>
                 </CardContent>
                 <CardActions>

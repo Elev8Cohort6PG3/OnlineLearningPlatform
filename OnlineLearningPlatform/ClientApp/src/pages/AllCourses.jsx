@@ -4,10 +4,20 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CourseCard from "../components/CourseCard";
-import {courses} from "../MockData";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 
 export default function AllCourses() {
+    const [courses, setCourses] = useState(null);
+
+    useEffect(() => {
+        axios.get("https://localhost:7240/course", {}).then((response) => {
+                setCourses(response.data);
+            }
+        )
+    }, []);
+
     return (
         <div style={{
             background: 'linear-gradient(90deg, rgb(226, 94, 62) 0%, rgb(255, 155, 80) 53%, rgb(255, 187, 92) 100%)',
@@ -39,9 +49,9 @@ export default function AllCourses() {
                 </Box>
                 <Container sx={{py: 8}} maxWidth="90%">
                     <Grid container spacing={4}>
-                        {courses.map((course, index) => (
+                        {courses && (courses.map((course, index) => (
                             <CourseCard courseInfo={course}/>
-                        ))}
+                        )))}
                     </Grid>
                 </Container>
             </main>

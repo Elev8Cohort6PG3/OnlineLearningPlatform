@@ -4,15 +4,33 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import InfoSnackbar from "./InfoSnackbar";
+import UserCredentials from "../authentication/UserCredentials";
+import {useEffect, useState} from "react";
 
-const options = [
-    'Profile',
-    'Logout',
-];
 
 const ITEM_HEIGHT = 48;
 
 export default function AccountDropdownMenu() {
+    const [options, setOptions] = useState([
+        'Profile',
+        'Logout',
+    ]);
+
+    let role = UserCredentials().role;
+
+    useEffect(() => {
+        if (role === "Member") {
+        } else if (role === "Lecturer") {
+            setOptions([
+                    'Dashboard',
+                    'Publish',
+                    'Logout',
+                ]
+            );
+        }
+    }, []);
+
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [logoutPopupOpen, setLogoutPopupOpen] = React.useState(false);
     const open = Boolean(anchorEl);
@@ -34,12 +52,16 @@ export default function AccountDropdownMenu() {
             );
         } else if (event.currentTarget.innerText === "Profile") {
             window.location.assign("/profile")
+        } else if (event.currentTarget.innerText === "Dashboard") {
+            window.location.assign("/profile")
+        } else if (event.currentTarget.innerText === "Publish") {
+            window.location.assign("/add-course")
         }
     };
 
     return (
         <div>
-            { logoutPopupOpen && <InfoSnackbar message="Logout Successfull!"/>}
+            {logoutPopupOpen && <InfoSnackbar message="Logout Successfull!"/>}
             <IconButton
                 aria-label="more"
                 id="long-button"
@@ -48,7 +70,7 @@ export default function AccountDropdownMenu() {
                 aria-haspopup="true"
                 onClick={handleClick}
             >
-                <ManageAccountsIcon />
+                <ManageAccountsIcon/>
             </IconButton>
             <Menu
                 id="long-menu"
