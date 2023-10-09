@@ -28,7 +28,7 @@ html {
   margin-top: 13px;
   margin-left: 15px;
   padding: 0px 0px 6px 0px;
-  font-size: 51px;
+  font-size: 30px;
   line-height: 44px;
   letter-spacing: -2px;
   font-weight: bold;
@@ -58,4 +58,8 @@ html {
   line-height: 44px;
   letter-spacing: 0px;
   font-weight: normal;
+}
+
+.main-Navbar .container {
+  margin: 0 10px;
 }

@@ -132,9 +132,7 @@ export default function CourseDetails() {
                                                                  secondary={course.courseWithoutVideoDto.category}/>}
                                     </ListItem>
                                     <Button className="enrollButton" variant="contained">Enroll</Button>
-                                    {instructor &&
-                                        <ViewProfileDialog username={instructor.userName} open={profileDialogOpen}
-                                                           onClose={handleProfileDialogClose}/>}
+                                    {instructor && <ViewProfileDialog userName={instructor.userName} open={profileDialogOpen} onClose={handleProfileDialogClose}/>}
                                 </List>
                             </Paper>
                         </Grid>

@@ -3,6 +3,7 @@ import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from '
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import AccountDropdownMenu from "./AccountDropdownMenu";
+import SimpleSearch from "./SimpleSearch";
 
 export class NavMenu extends Component {
 
@@ -38,10 +39,11 @@ export class NavMenu extends Component {
 
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 main-Navbar" container light>
+        <Navbar className="navbar-expand-sm navbar-toggleable-sm box-shadow mb-3 main-Navbar" container light>
           <img src="https://i.imgur.com/PX3MnjL.png" alt="website logo" style={{width: "15%"}}/>
           <NavbarBrand tag={Link} to="/"><label className="lmsLabel">Learning Management System</label></NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <SimpleSearch autoFocus={false}/>
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>

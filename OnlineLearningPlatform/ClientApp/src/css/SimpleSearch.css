@@ -1,0 +1,33 @@
+.courseSearchGrid {
+    position: absolute;
+}
+
+.courseSearchCard {
+    
+}
+
+.searchInput {
+    font-size: 19px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: rgba(226, 94, 62, 0.4);
+    transition: 0.15s ease margin-top;
+    cursor: auto;
+}
+
+.searchDiv {
+    margin-top: 10px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.searchIcon {
+    margin-top: 15px;
+    margin-left: 7px;
+    cursor: pointer;
+}
+
+.searchPageContainer{
+    padding: 10px !important;
+}
