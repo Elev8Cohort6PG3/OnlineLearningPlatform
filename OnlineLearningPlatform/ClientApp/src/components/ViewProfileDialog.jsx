@@ -11,14 +11,29 @@ import Face2Icon from '@mui/icons-material/Face2';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import PublishIcon from '@mui/icons-material/Publish';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function ViewProfileDialog(props) {
-    const username = props.username;
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        axios.get(`https://localhost:7240/users/${props.userName}`, {}).then((response) => {
+
+                if (response.data.firstName === null || response.data.firstName === undefined || response.data.firstName === "") {
+                    response.data.firstName = "Not Provided";
+                } if (response.data.lastName === null || response.data.lastName === undefined || response.data.lastName === "") {
+                    response.data.lastName = "Not Provided";
+                } if (response.data.email === null || response.data.email === undefined || response.data.email === "") {
+                    response.data.email = "Not Provided";
+                }
+                console.log(response.data);
+                setUser(response.data);
+        }
+        )
+    }, [props.userName]);
+
     const role = "instructor";
-    const name = "Michael";
-    const surname = "Jordan";
-    const nameSurname = name + " " + surname;
-    const email = "Michael.Jordan12@gmail.com";
     const courseCount = 10;
     const enrollmentCount = 5;
 
@@ -32,24 +47,24 @@ export default function ViewProfileDialog(props) {
             }} open={open}>
                 <DialogTitle>About User</DialogTitle>
                 <List sx={{pt: 0}}>
-                    <ListItem disableGutters key={name}>
+                    <ListItem disableGutters>
                         <ListItemButton sx={{height: "50px"}}>
                             <ListItemAvatar>
                                 <Avatar sx={{bgcolor: 'rgb(226, 94, 62)'}}>
                                     <Face2Icon/>
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={nameSurname} secondary="Name"/>
+                            {user && <ListItemText primary={user.firstName} secondary="Name"/>}
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disableGutters key={email}>
+                    <ListItem disableGutters>
                         <ListItemButton sx={{height: "50px"}}>
                             <ListItemAvatar>
                                 <Avatar sx={{bgcolor: 'rgb(226, 94, 62)'}}>
                                     <ContactMailIcon/>
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={email} secondary="E-Mail"/>
+                            {user && <ListItemText primary={user.email} secondary="E-Mail"/>}
                         </ListItemButton>
                     </ListItem>
                     <ListItem disableGutters>
