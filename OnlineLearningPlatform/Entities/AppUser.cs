@@ -9,5 +9,7 @@ namespace OnlineLearningPlatform.Entities
 		public string? LastName { get; set; }
 
 		public List<AppUserRole> UserRoles { get; set; }
+		public List<Enrollment> Enrollments { get; set; } = new();
+
 	}
 }

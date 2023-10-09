@@ -43,6 +43,16 @@ namespace OnlineLearningPlatform.Controllers
 			return Ok(course);
 		}
 
+		[HttpGet("all-courses/{username}")]
+		public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCoursesForLecturer(string username)
+		{
+			var courses = await _unitOfWork.CourseRepository.GetAllCoursesForLecturer(username);
+
+			if (courses == null) return NotFound("Failed to find the courses");
+
+			return Ok(courses);
+		}
+
 		[HttpPost]
 		public async Task<ActionResult> AddCourseToUser(CourseDto courseDto)
 		{

@@ -33,54 +33,8 @@ namespace OnlineLearningPlatform.Data
 			_dataContext.Courses.Remove(course);
 		}
 
-		/*public async Task<Course> UpdateCourse(CourseUpdateDto courseUpdateDto)
-		{
-			//await _dataContext.Courses.FindAsync(courseUpdateDto.Id);
-
-		}*/
-
 		public async Task<CourseWithUserAndVideoDto> GetCourse(int id)
 		{
-			//return _mapper.Map<CourseDto>(await _dataContext.Courses.FindAsync(id));
-
-			//return await _dataContext.Courses.Include(v => v.Videos).FirstOrDefaultAsync(x => x.Id == id);
-
-			/*return _mapper.Map<CourseDto>( await _dataContext.Courses
-				.Include(v => v.Videos).FirstOrDefaultAsync(x => x.Id == id));*/
-
-			/*var query = _dataContext.Courses.AsQueryable();
-
-			return await query
-				.Include(v => v.Videos)
-				/*.Include(u => u.AppUserId)#1#
-				.Where(x => x.Id == id).FirstOrDefaultAsync();*/
-
-			/*var query = _dataContext.Courses.AsQueryable();
-
-			var firstQuery = query.Include(v => v.Videos);
-			var secondQuery = firstQuery.Include(u => u.AppUserId);
-
-			return await secondQuery.FirstOrDefaultAsync(x => x.Id == id);*/
-
-			/*
-			var query = from Course in _dataContext.Set<Course>()
-				join AppUser in _dataContext.Set<AppUser>()
-					on Course.AppUserId equals AppUser.Id
-				join Video in _dataContext.Set<Video>()
-					on Course.Id equals Video.CourseId into Grouping
-				select new CourseWithUserAndVideoDto()
-				{
-					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
-					/*VideoDtos = new List<VideoDto>(_mapper.Map<VideoDto[]>(Video)),#1#
-					VideoDto = Grouping.ToList(),
-					userName = AppUser.UserName
-				};
-
-			var a = await query.ToListAsync();
-			return a[id];
-
-			//return await query.FirstOrDefaultAsync(x => x.CourseWithoutVideoDto.Id == id);*/
-
 			var query = from Course in _dataContext.Set<Course>()
 				join AppUser in _dataContext.Set<AppUser>()
 					on Course.AppUserId equals AppUser.Id
@@ -89,13 +43,7 @@ namespace OnlineLearningPlatform.Data
 				{
 					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
 					userName = AppUser.UserName,
-					VideoDto = Course.Videos.Select(video => new VideoDto()
-					{
-						Id = video.Id,
-						Url = video.Url,
-						Description = video.Description
-
-					}).ToList()
+					VideoDto = Course.Videos.Select(video => _mapper.Map<VideoDto>(video)).ToList()
 				};
 
 			return await query.FirstOrDefaultAsync();
@@ -103,38 +51,6 @@ namespace OnlineLearningPlatform.Data
 
 		public async Task<IEnumerable<CourseWithUserAndVideoDto>> GetCourses()
 		{
-			/*var query = _dataContext.Courses.AsQueryable();
-			var courses = query
-				.Include(v => v.Videos)
-				.ProjectTo<CourseDto>(_mapper.ConfigurationProvider);
-
-			return await courses.ToListAsync();*/
-
-			/*var query = _dataContext.Courses.AsQueryable();
-
-			return await query
-				.Include(v => v.Videos)
-				/*.Include(u => u.AppUserId)#1#
-				.ToListAsync();*/
-
-			/*var query = from Course in _dataContext.Set<Course>()
-				join AppUser in _dataContext.Set<AppUser>()
-					on Course.AppUserId equals AppUser.Id
-				join Video in _dataContext.Set<Video>()
-					on Course.Id equals Video.CourseId into Grouping
-				select new CourseWithUserAndVideoDto()
-				{
-					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
-					/*VideoDtos = new List<VideoDto>(_mapper.Map<VideoDto[]>(Video)),#1#
-					VideoDto = Grouping.ToList(),
-					userName = AppUser.UserName
-				};
-
-
-			//query.Include(c => c.Course.Videos);
-
-			return await query.ToListAsync();*/
-
 			var query = from Course in _dataContext.Set<Course>()
 				join AppUser in _dataContext.Set<AppUser>()
 					on Course.AppUserId equals AppUser.Id
@@ -142,13 +58,26 @@ namespace OnlineLearningPlatform.Data
 				{
 					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
 					userName = AppUser.UserName,
-					VideoDto = Course.Videos.Select(video => new VideoDto()
-					{
-						Id = video.Id,
-						Url = video.Url,
-						Description = video.Description
+					VideoDto = Course.Videos
+						.Select(video => _mapper.Map<VideoDto>(video))
+						.ToList()
+				};
 
-					}).ToList()
+			return await query.ToListAsync();
+		}
+
+		public async Task<IEnumerable<CourseWithoutUserDto>> GetAllCoursesForLecturer(string username)
+		{
+			var query = from Course in _dataContext.Set<Course>()
+				join AppUser in _dataContext.Set<AppUser>()
+					on Course.AppUserId equals AppUser.Id
+					where AppUser.UserName == username
+				select new CourseWithoutUserDto()
+				{
+					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
+					VideoDto = Course.Videos
+						.Select(video => _mapper.Map<VideoDto>(video))
+						.ToList()
 				};
 
 			return await query.ToListAsync();
