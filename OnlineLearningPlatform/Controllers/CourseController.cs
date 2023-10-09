@@ -51,12 +51,15 @@ namespace OnlineLearningPlatform.Controllers
 
 			var course = new Course()
 			{
-				Title = courseDto.Title,
+				/*Title = courseDto.Title,
 				Description = courseDto.Description,
 				Category = courseDto.Category,
 				ImageUrl = courseDto.ImageUrl,
-				Videos = _mapper.Map<Course>(courseDto).Videos
+				Videos = _mapper.Map<Course>(courseDto).Videos*/
+				
 			};
+
+			_mapper.Map(courseDto, course);
 
 			_unitOfWork.CourseRepository.AddCourseToUser(course, user);
 
