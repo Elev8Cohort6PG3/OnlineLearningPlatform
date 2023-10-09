@@ -82,7 +82,17 @@ namespace OnlineLearningPlatform.Controllers
 		[HttpPut]
 		public async Task<ActionResult> UpdateCourse(CourseUpdateDto courseUpdateDto)
 		{
-			var course = await _unitOfWork.CourseRepository.GetCourse(courseUpdateDto.Id);
+			/*var course = await _unitOfWork.CourseRepository.GetCourse(courseUpdateDto.Id);
+
+			if (course == null) return NotFound("Failed to find course");
+
+			_mapper.Map(courseUpdateDto, course);
+
+			if (await _unitOfWork.Complete()) return NoContent();
+
+			return BadRequest("Failed to update course");*/
+			
+			var course = await _unitOfWork.CourseRepository.GetCourseForModification(courseUpdateDto.Id);
 
 			if (course == null) return NotFound("Failed to find course");
 
@@ -96,11 +106,22 @@ namespace OnlineLearningPlatform.Controllers
 		[HttpDelete("delete-course/{courseId:int}")]
 		public async Task<ActionResult> DeleteCourse(int courseId)
 		{
-			var courseDto = await _unitOfWork.CourseRepository.GetCourse(courseId);
+			/*var courseDto = await _unitOfWork.CourseRepository.GetCourse(courseId);
 
 			if (courseDto == null) return NotFound();
 
 			 _unitOfWork.CourseRepository.DeleteCourse(_mapper.Map<Course>(courseDto));
+
+			 if (await _unitOfWork.Complete()) return Ok();
+
+			 return BadRequest("Failed to delete course");*/
+			 
+			 
+			 var course = await _unitOfWork.CourseRepository.GetCourseForModification(courseId);
+
+			if (course == null) return NotFound();
+
+			 _unitOfWork.CourseRepository.DeleteCourse(course);
 
 			 if (await _unitOfWork.Complete()) return Ok();
 

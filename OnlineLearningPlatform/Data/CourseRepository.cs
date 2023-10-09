@@ -38,7 +38,7 @@ namespace OnlineLearningPlatform.Data
 			var query = from Course in _dataContext.Set<Course>()
 				join AppUser in _dataContext.Set<AppUser>()
 					on Course.AppUserId equals AppUser.Id
-					where Course.Id == id
+				where Course.Id == id
 				select new CourseWithUserAndVideoDto()
 				{
 					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
@@ -71,7 +71,7 @@ namespace OnlineLearningPlatform.Data
 			var query = from Course in _dataContext.Set<Course>()
 				join AppUser in _dataContext.Set<AppUser>()
 					on Course.AppUserId equals AppUser.Id
-					where AppUser.UserName == username
+				where AppUser.UserName == username
 				select new CourseWithoutUserDto()
 				{
 					CourseWithoutVideoDto = _mapper.Map<CourseWithoutVideoDto>(Course),
@@ -81,6 +81,13 @@ namespace OnlineLearningPlatform.Data
 				};
 
 			return await query.ToListAsync();
+		}
+
+		public async Task<Course> GetCourseForModification(int courseId)
+		{
+			return await _dataContext.Courses
+				.Where(c => c.Id == courseId)
+				.FirstOrDefaultAsync();
 		}
 	}
 }
