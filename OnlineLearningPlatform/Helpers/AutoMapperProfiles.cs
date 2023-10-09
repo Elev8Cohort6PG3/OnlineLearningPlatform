@@ -12,8 +12,11 @@ namespace OnlineLearningPlatform.Helpers
 			CreateMap<RegisterDto, AppUser>();
 			CreateMap<Video, VideoDto>();
 			CreateMap<VideoDto, Video>();
+			CreateMap<Video, VideoDto[]>();
+			CreateMap<Video[], VideoDto[]>();
 			CreateMap<Course, CourseDto>();
 			CreateMap<CourseDto, Course>();
+			CreateMap<Course, CourseWithoutVideoDto>();
 			CreateMap<MemberUpdateDto, AppUser>();
 		}
 
