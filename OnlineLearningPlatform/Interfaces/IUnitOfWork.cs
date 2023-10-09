@@ -7,6 +7,7 @@ namespace OnlineLearningPlatform.Interfaces
 	{
 		IUserRepository UserRepository { get; }
 		ICourseRepository CourseRepository { get; }
+		IEnrollmentRepository EnrollmentRepository { get; }
 		Task<bool> Complete();
 		bool HasChanges();
 	}
