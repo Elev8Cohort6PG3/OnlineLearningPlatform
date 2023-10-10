@@ -29,14 +29,15 @@ export default function CourseDetails() {
     const [course, setCourse] = useState(null);
     const [instructor, setInstructor] = useState(null);
     const [userType, setUserType] = useState("Member");
-    if(UserCredentials().role.includes("Lecturer")) {
-        setUserType("Lecturer");
-    } else if(UserCredentials().role.includes("Admin")) {
-        setUserType("Admin");
-    }
+
 
 
     useEffect(() => {
+        if(UserCredentials().role.includes("Lecturer")) {
+            setUserType("Lecturer");
+        } else if(UserCredentials().role.includes("Admin")) {
+            setUserType("Admin");
+        }
         axios.get(`https://localhost:7240/course/${courseId}`, {}).then((response) => {
                 setCourse(response.data);
                 console.log(response.data);
