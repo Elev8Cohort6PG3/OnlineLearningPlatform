@@ -56,7 +56,7 @@ export default function CourseCRUD() {
 
 
     function getStepContent(step) {
-        if(!(userIsAuthorized)) {
+        if(!(userIsAuthorized) && editMode) {
             let requiredRole = "This Course Belongs to " + instructorUsername;
             return(<Unauthorized requiredRole={requiredRole}/>);
         }
