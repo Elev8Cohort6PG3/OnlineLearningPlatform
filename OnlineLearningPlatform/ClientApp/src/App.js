@@ -30,6 +30,7 @@ export default class App extends Component {
                     <Route path="/all-courses" element={<AllCourses/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/search/:searchVal" element={<Search/>}/>
+                    <Route path="/profile/:studentUsername" element={<StudentProfilePage/>}/>
                     <Route path="/instructor-dashboard/:instructorUsername" element={<InstructorProfilePage/>}/>
                     <Route
                         path="/profile"
