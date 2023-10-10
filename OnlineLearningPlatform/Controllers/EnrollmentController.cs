@@ -42,6 +42,7 @@ namespace OnlineLearningPlatform.Controllers
 		public async Task<ActionResult> AddEnrollmentToCourse(int courseId)
 		{
 			var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
+
 			if (user == null) return NotFound("User is not exist");
 
 			await _unitOfWork.EnrollmentRepository.AddEnrollmentToCourse(user, courseId);
@@ -77,7 +78,6 @@ namespace OnlineLearningPlatform.Controllers
 			if (await _unitOfWork.Complete()) return Ok();
 
 			return BadRequest("Failed to delete the enrollment");
-
 		}
 	}
 }
