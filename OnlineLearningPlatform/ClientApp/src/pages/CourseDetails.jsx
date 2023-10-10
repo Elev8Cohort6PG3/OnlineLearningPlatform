@@ -18,6 +18,8 @@ import './CourseDetails.css';
 import ViewProfileDialog from "../components/ViewProfileDialog";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import UserCredentials from "../authentication/UserCredentials";
+import CourseEnrollButton from "../components/CourseEnrollButton";
 
 export default function CourseDetails() {
     const [profileDialogOpen, setProfileDialogOpen] = React.useState(false);
@@ -26,6 +28,12 @@ export default function CourseDetails() {
 
     const [course, setCourse] = useState(null);
     const [instructor, setInstructor] = useState(null);
+    const [userType, setUserType] = useState("Member");
+    if(UserCredentials().role.includes("Lecturer")) {
+        setUserType("Lecturer");
+    } else if(UserCredentials().role.includes("Admin")) {
+        setUserType("Admin");
+    }
 
 
     useEffect(() => {
@@ -131,7 +139,9 @@ export default function CourseDetails() {
                                         {course && <ListItemText primary="Category"
                                                                  secondary={course.courseWithoutVideoDto.category}/>}
                                     </ListItem>
-                                    <Button className="enrollButton" variant="contained">Enroll</Button>
+                                    <ListItem>
+                                        {(userType === "Member") && <CourseEnrollButton courseId={courseId}/>}
+                                    </ListItem>
                                     {instructor && <ViewProfileDialog userName={instructor.userName} open={profileDialogOpen} onClose={handleProfileDialogClose}/>}
                                 </List>
                             </Paper>
