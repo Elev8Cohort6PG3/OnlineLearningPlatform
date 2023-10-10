@@ -37,7 +37,11 @@ namespace OnlineLearningPlatform.Controllers
 
 			if (!result.Succeeded) return BadRequest(result.Errors);
 
-			var roleResult = await _userManager.AddToRoleAsync(user, role);
+			var roles = new List<string>() { "member" };
+
+			if (role == "lecturer") roles.Add("lecturer");
+			
+			var roleResult = await _userManager.AddToRolesAsync(user, roles);
 
 			if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
 
