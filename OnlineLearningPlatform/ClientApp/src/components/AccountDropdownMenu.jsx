@@ -20,7 +20,7 @@ export default function AccountDropdownMenu() {
 
     useEffect(() => {
         if (role === "Member") {
-        } else if (role === "Lecturer") {
+        } else if (role.includes("Lecturer")) {
             setOptions([
                     'Dashboard',
                     'Publish',
