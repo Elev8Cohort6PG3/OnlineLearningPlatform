@@ -8,14 +8,20 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
+import CourseDeleteDialog from "./CourseDeleteDialog";
 
 export default function CourseCard(props) {
     const navigate = useNavigate();
-    const [InstructorPageCourseCard, setInstructorPageCourseCard] = useState(false);
+    const [instructorPageCourseCard, setInstructorPageCourseCard] = useState(false);
+    const [currentUserIsAuthorized, setCurrentUserIsAuthorized] = useState(false);
+
 
     useEffect(() => {
         if(!(props.instructorPageCourseCard === undefined) && (props.instructorPageCourseCard === true)) {
             setInstructorPageCourseCard(true);
+        }
+        if(!(props.currentUserIsAuthorized === undefined) && (props.currentUserIsAuthorized === true)) {
+            setCurrentUserIsAuthorized(true);
         }
     }, []);
 
@@ -55,10 +61,10 @@ export default function CourseCard(props) {
                         {courseBasics.description}
                     </Typography>
                 </CardContent>
-                <CardActions>
+                {instructorPageCourseCard && currentUserIsAuthorized && <CardActions>
                     <Button onClick={()=>{navigate(`/edit-course/${courseBasics.id}`)}}>Edit Course</Button>
-                    <Button>Delete Course</Button>
-                </CardActions>
+                    <CourseDeleteDialog courseId={courseBasics.id}/>
+                </CardActions>}
             </Card>
         </Grid>
     )

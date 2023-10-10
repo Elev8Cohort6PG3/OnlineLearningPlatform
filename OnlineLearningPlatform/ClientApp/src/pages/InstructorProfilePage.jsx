@@ -63,7 +63,7 @@ export default function InstructorProfilePage(props) {
                     <h3>My Courses</h3>
                     <Grid container>
                         {courses && courses.map((course, index) => (
-                            <CourseCard courseInfo={course} instructorPageCourseCard={true}/>
+                            <CourseCard courseInfo={course} instructorPageCourseCard={true} currentUserIsAuthorized={currentUserIsAuthorized}/>
                         ))}
                     </Grid>
                 </Grid>
