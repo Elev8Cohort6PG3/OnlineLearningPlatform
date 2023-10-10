@@ -5,7 +5,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import Button from "@mui/material/Button";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import PublishIcon from '@mui/icons-material/Publish';
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import UserCredentials from "../authentication/UserCredentials";

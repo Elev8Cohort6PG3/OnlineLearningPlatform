@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Grid} from "@mui/material";
-import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import CourseCard from "../components/CourseCard";
 import "../css/ProfilePage.css";
@@ -11,7 +10,7 @@ import UserCredentials from "../authentication/UserCredentials";
 import EditUserProfile from "../components/EditUserProfile";
 
 
-export default function InstructorProfilePage(props) {
+export default function InstructorProfilePage() {
     const [editDialogOpen, setEditDialogOpen] = React.useState(false);
     const [courses, setCourses] = useState(null);
     const [instructor, setInstructor] = React.useState(null);
@@ -51,11 +50,15 @@ export default function InstructorProfilePage(props) {
             <Grid container>
                 <Grid item className='col' xs={12} sm={3}>
                     <div className="profile">
-                        {instructor && <Avatar src="https://source.unsplash.com/random?wallpapers?9" sx={{width: 108, height: 108}}>{instructor.userName}</Avatar>}
+                        {instructor && <Avatar src="https://source.unsplash.com/random?wallpapers?9"
+                                               sx={{width: 108, height: 108}}>{instructor.userName}</Avatar>}
                         {instructor && <h4>{instructor.userName}</h4>}
-                        {instructor && currentUserIsAuthorized && <EditUserProfile editDialogOpen={editDialogOpen} setEditDialogOpen={setEditDialogOpen} userName={instructor.userName}/>}
+                        {instructor && currentUserIsAuthorized &&
+                            <EditUserProfile editDialogOpen={editDialogOpen} setEditDialogOpen={setEditDialogOpen}
+                                             userName={instructor.userName}/>}
                     </div>
-                    {instructor && <Typography><p>Name: {instructor.firstName}</p><p>Surname: {instructor.lastName}</p></Typography>}
+                    {instructor && <Typography><p>Name: {instructor.firstName}</p><p>Surname: {instructor.lastName}</p>
+                    </Typography>}
                     {instructor && <Typography><p>Email: {instructor.email}</p></Typography>}
                     {instructor && courses && <Typography><p>Published Courses: {courses.length}</p></Typography>}
                 </Grid>
@@ -63,7 +66,8 @@ export default function InstructorProfilePage(props) {
                     <h3>My Courses</h3>
                     <Grid container>
                         {courses && courses.map((course, index) => (
-                            <CourseCard courseInfo={course} instructorPageCourseCard={true} currentUserIsAuthorized={currentUserIsAuthorized}/>
+                            <CourseCard courseInfo={course} instructorPageCourseCard={true}
+                                        currentUserIsAuthorized={currentUserIsAuthorized}/>
                         ))}
                     </Grid>
                 </Grid>

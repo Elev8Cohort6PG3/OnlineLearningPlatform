@@ -13,7 +13,6 @@ import '../css/courseCRUD.css';
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import UserCredentials from "../authentication/UserCredentials";
-import TextField from "@mui/material/TextField";
 import Unauthorized from "../authentication/Unauthorized";
 
 const steps = ['Course Information', 'Course Content', 'Finalize'];
