@@ -13,6 +13,7 @@ import ConsumeContent from "./pages/ConsumeContent";
 import StudentProfilePage from "./pages/StudentProfilePage";
 import CourseCRUD from "./pages/CourseCRUD";
 import Search from "./pages/Search";
+import InstructorProfilePage from "./pages/InstructorProfilePage";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -29,7 +30,8 @@ export default class App extends Component {
                     <Route path="/all-courses" element={<AllCourses/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/search/:searchVal" element={<Search/>}/>
-
+                    <Route path="/instructor-dashboard" element={<InstructorProfilePage/>}/>
+                    <Route path="/instructor-dashboard/:instructorUsername" element={<InstructorProfilePage/>}/>
                     <Route
                         path="/profile"
                         element={
