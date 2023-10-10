@@ -12,7 +12,7 @@ import UserCredentials from "../authentication/UserCredentials";
 import axios from "axios";
 
 export default function CoursePublishForm(props) {
-    const {courseTitle, courseDescription, courseCategory, inputFields, setActiveStep, imageURL} = props;
+    const {courseTitle, courseDescription, courseCategory, inputFields, setActiveStep, imageURL, editMode, courseId} = props;
 
 
     const handleSubmit = (event) => {
@@ -39,6 +39,35 @@ export default function CoursePublishForm(props) {
             .catch((err) => {
                 console.log("AXIOS ERROR: ", err);
             })
+    };
+
+
+    const handleEdit = (event) => {
+        event.preventDefault();
+
+        let postData = {
+            id: courseId,
+            Title: courseTitle,
+            Description: courseDescription,
+            Category: courseCategory,
+            imageUrl: imageURL,
+            Videos: inputFields
+        };
+
+        let axiosConfig = {
+            headers: {
+                'Authorization': `bearer ${UserCredentials().token}`,
+            }
+        };
+
+        axios.put(`https://localhost:7240/course`, postData, axiosConfig)
+            .then((res) => {
+                console.log("RESPONSE RECEIVED: ", res);
+            })
+            .catch((err) => {
+                console.log("AXIOS ERROR: ", err);
+            })
+        setActiveStep(3);
     };
 
 
@@ -80,7 +109,7 @@ export default function CoursePublishForm(props) {
                         {inputFields.map((inputField) => (
                             <React.Fragment>
                                 <Grid item xs={6}>
-                                    <Typography gutterBottom>Video URL: {inputField.videoURL}</Typography>
+                                    <Typography gutterBottom>Video URL: {inputField.url}</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Typography gutterBottom>Description: {inputField.description}</Typography>
@@ -101,7 +130,7 @@ export default function CoursePublishForm(props) {
                         Back <ArrowLeftIcon fontSize="large"/>
                     </Button>
                 </Grid>
-                <Grid  item xs={6}>
+                {!editMode && <Grid  item xs={6}>
                     <Button
                         variant="contained"
                         sx={{mt: 3, mb: 2, ml: 10, height: "40px"}}
@@ -110,7 +139,17 @@ export default function CoursePublishForm(props) {
                     >
                         Publish <PublishIcon fontSize="medium"/>
                     </Button>
-                </Grid>
+                </Grid>}
+                {editMode && <Grid  item xs={6}>
+                    <Button
+                        variant="contained"
+                        sx={{mt: 3, mb: 2, ml: 10, height: "40px"}}
+                        className="nextButton"
+                        onClick={(e)=>{handleEdit(e)}}
+                    >
+                        Save Changes <PublishIcon fontSize="medium"/>
+                    </Button>
+                </Grid>}
             </Grid>
         </React.Fragment>
     );

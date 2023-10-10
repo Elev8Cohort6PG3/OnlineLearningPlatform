@@ -63,6 +63,12 @@ export default class App extends Component {
                             <PrivateRoute requiredRole="Lecturer" route={<CourseCRUD />}></PrivateRoute>
                         }
                     />
+                    <Route
+                        path="edit-course/:courseId"
+                        element={
+                            <PrivateRoute requiredRole="Lecturer" route={<CourseCRUD />}></PrivateRoute>
+                        }
+                    />
 
                 </Routes>
             </Layout>
