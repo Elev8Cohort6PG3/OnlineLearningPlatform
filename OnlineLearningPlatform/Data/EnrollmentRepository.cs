@@ -36,12 +36,24 @@ namespace OnlineLearningPlatform.Data
 			_dataContext.Enrollments.Add(enrollment);
 		}
 
-		public async Task<EnrollmentDto> GetEnrollment(int id)
+		public async Task<EnrollmentDto> GetEnrollmentDto(int id)
 		{
 			return await _dataContext.Enrollments
 				.Where(e => e.Id == id)
 				.ProjectTo<EnrollmentDto>(_mapper.ConfigurationProvider)
 				.SingleOrDefaultAsync();
+		}	
+		
+		public async Task<Enrollment> GetEnrollment(int id)
+		{
+			return await _dataContext.Enrollments
+				.Where(e => e.Id == id)
+				.SingleOrDefaultAsync();
 		}
+
+		/*public async Task<Enrollment> UpdateEnrollment(EnrollmentUpdateDto enrollmentUpdateDto)
+		{
+
+		}*/
 	}
 }
