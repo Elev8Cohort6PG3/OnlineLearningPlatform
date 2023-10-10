@@ -15,7 +15,7 @@ function PrivateRoute(props) {
 
     if (!userIsLogged) {
         return <Login redirectURL={path}/>;
-    } else if ((!(requiredRole === undefined) && !(userRole === requiredRole))) {
+    } else if ((!(requiredRole === undefined) && !(userRole.includes(requiredRole)))) {
         return <Unauthorized requiredRole={requiredRole}/>
     }
     return RouteElement;
