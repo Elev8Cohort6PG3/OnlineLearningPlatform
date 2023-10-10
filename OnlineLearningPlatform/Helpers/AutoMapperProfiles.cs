@@ -22,6 +22,7 @@ namespace OnlineLearningPlatform.Helpers
 			CreateMap<MemberUpdateDto, AppUser>();
 			CreateMap<Enrollment, EnrollmentDto>();
 			CreateMap<EnrollmentDto, Enrollment>();
+			CreateMap<EnrollmentUpdateDto, Enrollment>();
 		}
 
 	}

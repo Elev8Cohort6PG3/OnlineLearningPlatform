@@ -21,7 +21,7 @@ namespace OnlineLearningPlatform.Controllers
 		[HttpGet("{id:int}")]
 		public async Task<ActionResult<Enrollment>> GetEnrollment(int id)
 		{
-			var enrollment = await _unitOfWork.EnrollmentRepository.GetEnrollment(id);
+			var enrollment = await _unitOfWork.EnrollmentRepository.GetEnrollmentDto(id);
 
 			if (enrollment == null) return NotFound("Failed to find the enrollment");
 
@@ -39,6 +39,20 @@ namespace OnlineLearningPlatform.Controllers
 			if (await _unitOfWork.Complete()) return Ok("The enrollment has been successfully added to the course");
 
 			return BadRequest("Failed to create the enrollment for the course");
+		}
+
+		[HttpPut]
+		public async Task<ActionResult<Enrollment>> UpdateEnrollment(EnrollmentUpdateDto enrollmentUpdateDto)
+		{
+			var enrollment = await _unitOfWork.EnrollmentRepository.GetEnrollment(enrollmentUpdateDto.Id);
+
+			if (enrollment == null) return NotFound("Enrollment is not exist");
+
+			_mapper.Map(enrollmentUpdateDto, enrollment);
+
+			if (await _unitOfWork.Complete()) return NoContent();
+
+			return BadRequest("Failed to update enrollment");
 		}
 	}
 }
