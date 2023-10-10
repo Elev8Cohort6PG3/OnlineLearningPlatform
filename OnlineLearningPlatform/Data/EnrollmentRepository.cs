@@ -66,5 +66,10 @@ namespace OnlineLearningPlatform.Data
 
 			return await query.ToListAsync();
 		}
+
+		public void DeleteEnrollment(Enrollment enrollment)
+		{
+			_dataContext.Enrollments.Remove(enrollment);
+		}
 	}
 }
