@@ -10,6 +10,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import VideoEmbed from "../components/VideoEmbed";
+import {useParams} from "react-router-dom";
 
 
 const steps = [
@@ -66,7 +67,9 @@ function VerticalLinearStepper() {
 }
 
 
-export default function ConsumeContent() {
+export default function ConsumeContent(props) {
+    let param = useParams();
+    let courseId = param.courseId;
 
     return (
         <div>
