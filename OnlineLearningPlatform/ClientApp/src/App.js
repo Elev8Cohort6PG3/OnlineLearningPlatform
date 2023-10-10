@@ -30,12 +30,17 @@ export default class App extends Component {
                     <Route path="/all-courses" element={<AllCourses/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/search/:searchVal" element={<Search/>}/>
-                    <Route path="/instructor-dashboard" element={<InstructorProfilePage/>}/>
                     <Route path="/instructor-dashboard/:instructorUsername" element={<InstructorProfilePage/>}/>
                     <Route
                         path="/profile"
                         element={
                             <PrivateRoute requiredRole="Member" route={<StudentProfilePage/>}></PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/instructor-dashboard"
+                        element={
+                            <PrivateRoute requiredRole="Lecturer" route={<InstructorProfilePage/>}></PrivateRoute>
                         }
                     />
                     <Route
