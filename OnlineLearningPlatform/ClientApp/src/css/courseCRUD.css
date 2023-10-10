@@ -1,7 +1,7 @@
 .nextButton {
-    background-color: rgb(255, 155, 80)
+    background-color: rgb(255, 155, 80) !important;
 }
 
 .nextButton:hover {
-    background-color: rgb(198, 61, 47)
+    background-color: rgb(198, 61, 47) !important;
 }
