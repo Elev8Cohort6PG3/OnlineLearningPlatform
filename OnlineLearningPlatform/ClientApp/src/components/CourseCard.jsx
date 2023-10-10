@@ -5,8 +5,20 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
+import {useEffect, useState} from "react";
+import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
 
 export default function CourseCard(props) {
+    const navigate = useNavigate();
+    const [InstructorPageCourseCard, setInstructorPageCourseCard] = useState(false);
+
+    useEffect(() => {
+        if(!(props.instructorPageCourseCard === undefined) && (props.instructorPageCourseCard === true)) {
+            setInstructorPageCourseCard(true);
+        }
+    }, []);
+
     let course = props.courseInfo;
     let courseBasics = course.courseWithoutVideoDto;
 
@@ -20,9 +32,6 @@ export default function CourseCard(props) {
                     backgroundColor: 'rgba(198,61,47,0.87)',
                     backdropFilter: 'blur(100px)'
                 }}
-                onClick={() => {
-                    window.location.assign(`/course-details/${courseBasics.id}`)
-                }}
             >
                 <CardMedia
                     component="div"
@@ -31,8 +40,13 @@ export default function CourseCard(props) {
                         pt: '56.25%',
                     }}
                     image={courseBasics.imageUrl}
+                    onClick={() => {
+                        window.location.assign(`/course-details/${courseBasics.id}`)
+                    }}
                 />
-                <CardContent sx={{flexGrow: 1}}>
+                <CardContent onClick={() => {
+                    window.location.assign(`/course-details/${courseBasics.id}`)
+                }} sx={{flexGrow: 1}}>
                     <Typography gutterBottom variant="h5" component="h2">
                         {courseBasics.title}
                     </Typography>
@@ -42,7 +56,8 @@ export default function CourseCard(props) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-
+                    <Button onClick={()=>{navigate(`/edit-course/${courseBasics.id}`)}}>Edit Course</Button>
+                    <Button>Delete Course</Button>
                 </CardActions>
             </Card>
         </Grid>
