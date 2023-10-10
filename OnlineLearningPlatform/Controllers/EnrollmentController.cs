@@ -64,5 +64,20 @@ namespace OnlineLearningPlatform.Controllers
 
 			return BadRequest("Failed to update enrollment");
 		}
+
+		[HttpDelete("delete-enrollment/{enrollmentId:int}")]
+		public async Task<ActionResult> DeleteEnrollment(int enrollmentId)
+		{
+			var enrollment = await _unitOfWork.EnrollmentRepository.GetEnrollment(enrollmentId);
+
+			if (enrollment == null) return NotFound();
+
+			_unitOfWork.EnrollmentRepository.DeleteEnrollment(enrollment);
+
+			if (await _unitOfWork.Complete()) return Ok();
+
+			return BadRequest("Failed to delete the enrollment");
+
+		}
 	}
 }
