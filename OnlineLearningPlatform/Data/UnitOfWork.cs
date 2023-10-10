@@ -22,10 +22,5 @@ namespace OnlineLearningPlatform.Data
 		{
 			return await _context.SaveChangesAsync() > 0;
 		}
-
-		public bool HasChanges()
-		{
-			return _context.ChangeTracker.HasChanges();
-		}
 	}
 }
