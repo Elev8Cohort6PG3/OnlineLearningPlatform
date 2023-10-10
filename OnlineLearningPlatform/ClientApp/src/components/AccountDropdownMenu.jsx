@@ -20,7 +20,15 @@ export default function AccountDropdownMenu() {
 
     useEffect(() => {
         if (role === "Member") {
-        } else if (role.includes("Lecturer")) {
+        } else if (role.includes("Admin")) {
+            setOptions([
+                    'Admin Panel',
+                    'Dashboard',
+                    'Publish',
+                    'Logout',
+                ]
+            );}
+            else if (role.includes("Lecturer")) {
             setOptions([
                     'Dashboard',
                     'Publish',
@@ -56,6 +64,8 @@ export default function AccountDropdownMenu() {
             window.location.assign("/instructor-dashboard")
         } else if (event.currentTarget.innerText === "Publish") {
             window.location.assign("/add-course")
+        }else if (event.currentTarget.innerText === "Admin Panel") {
+            window.location.assign("/admin-panel")
         }
     };
 

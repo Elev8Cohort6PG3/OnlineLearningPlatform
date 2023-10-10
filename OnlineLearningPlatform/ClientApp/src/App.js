@@ -14,6 +14,7 @@ import StudentProfilePage from "./pages/StudentProfilePage";
 import CourseCRUD from "./pages/CourseCRUD";
 import Search from "./pages/Search";
 import InstructorProfilePage from "./pages/InstructorProfilePage";
+import AdminPanel from './pages/AdminPanel';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -32,6 +33,7 @@ export default class App extends Component {
                     <Route path="/search/:searchVal" element={<Search/>}/>
                     <Route path="/profile/:studentUsername" element={<StudentProfilePage/>}/>
                     <Route path="/instructor-dashboard/:instructorUsername" element={<InstructorProfilePage/>}/>
+                    <Route path="/admin-panel" element={<AdminPanel/>}/>
                     <Route
                         path="/profile"
                         element={
