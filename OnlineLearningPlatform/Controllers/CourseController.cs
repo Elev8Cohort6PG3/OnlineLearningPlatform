@@ -48,7 +48,7 @@ namespace OnlineLearningPlatform.Controllers
 		{
 			var courses = await _unitOfWork.CourseRepository.GetAllCoursesForLecturer(username);
 
-			if (courses == null) return NotFound("Failed to find the courses");
+			if (courses == null) return NotFound("Failed to find courses");
 
 			return Ok(courses);
 		}
