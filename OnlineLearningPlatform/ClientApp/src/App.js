@@ -39,6 +39,12 @@ export default class App extends Component {
                         }
                     />
                     <Route
+                        path="/consume-content/:courseId"
+                        element={
+                            <PrivateRoute requiredRole="Member" route={<ConsumeContent/>}></PrivateRoute>
+                        }
+                    />
+                    <Route
                         path="/instructor-dashboard"
                         element={
                             <PrivateRoute requiredRole="Lecturer" route={<InstructorProfilePage/>}></PrivateRoute>
