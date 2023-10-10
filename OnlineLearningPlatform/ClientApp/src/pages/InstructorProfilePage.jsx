@@ -25,6 +25,7 @@ export default function InstructorProfilePage(props) {
         }
         if (param.instructorUsername === undefined) {
             instructorUsername = UserCredentials().username;
+            setCurrentUserIsAuthorized(true);
         }
         axios.get(`https://localhost:7240/course/all-courses/${instructorUsername}`, {}).then((response) => {
                 setCourses(response.data);
