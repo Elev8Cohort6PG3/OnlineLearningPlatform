@@ -99,7 +99,7 @@ export default function CourseCard(props) {
                     </Typography>
                 </CardContent>}
                 {instructorPageCourseCard && currentUserIsAuthorized && props.courseInfo && <CardActions>
-                    <Button onClick={()=>{navigate(`/edit-course/${courseBasics.id}`)}}>Edit Course</Button>
+                    <Button sx={{color: "white", marginRight: 6}} onClick={()=>{navigate(`/edit-course/${courseBasics.id}`)}}>Edit Course</Button>
                     <CourseDeleteDialog courseId={courseBasics.id}/>
                 </CardActions>}
                 {instructorPageCourseCard && currentUserIsAuthorized && props.courseId && <CardActions>

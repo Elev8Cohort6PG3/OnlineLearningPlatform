@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Grid} from "@mui/material";
-import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import CourseCard from "../components/CourseCard";
 import "../css/ProfilePage.css";
@@ -11,7 +10,7 @@ import UserCredentials from "../authentication/UserCredentials";
 import EditUserProfile from "../components/EditUserProfile";
 
 
-export default function StudentProfilePage(props) {
+export default function StudentProfilePage() {
     const [editDialogOpen, setEditDialogOpen] = React.useState(false);
     const [courses, setCourses] = useState(null);
     const [student, setStudent] = React.useState(null);

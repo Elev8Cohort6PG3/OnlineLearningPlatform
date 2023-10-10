@@ -7,7 +7,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import axios from "axios";
-import InfoSnackbar from "./InfoSnackbar";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -36,7 +35,7 @@ export default function CourseDeleteDialog(props) {
 
     return (
         <div>
-            <Button onClick={handleClickOpen}>
+            <Button sx={{color: "white"}} onClick={handleClickOpen}>
                 Delete Course
             </Button>
             <Dialog
@@ -54,7 +53,9 @@ export default function CourseDeleteDialog(props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={()=>{handleDeletion()}}>Confirm Delete</Button>
+                    <Button onClick={() => {
+                        handleDeletion()
+                    }}>Confirm Delete</Button>
                 </DialogActions>
             </Dialog>
         </div>

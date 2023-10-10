@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -67,7 +66,7 @@ function VerticalLinearStepper(props) {
 }
 
 
-export default function ConsumeContent(props) {
+export default function ConsumeContent() {
     let param = useParams();
     let courseId = param.courseId;
     const [course, setCourse] = useState(null);

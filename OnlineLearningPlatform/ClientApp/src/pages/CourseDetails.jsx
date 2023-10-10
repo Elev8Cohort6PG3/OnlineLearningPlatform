@@ -11,15 +11,14 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Face2Icon from '@mui/icons-material/Face2';
-import BookIcon from '@mui/icons-material/Book';
 import CategoryIcon from '@mui/icons-material/Category';
-import Button from "@mui/material/Button";
 import './CourseDetails.css';
 import ViewProfileDialog from "../components/ViewProfileDialog";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import UserCredentials from "../authentication/UserCredentials";
 import CourseEnrollButton from "../components/CourseEnrollButton";
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 export default function CourseDetails() {
     const [profileDialogOpen, setProfileDialogOpen] = React.useState(false);
@@ -31,11 +30,10 @@ export default function CourseDetails() {
     const [userType, setUserType] = useState("Member");
 
 
-
     useEffect(() => {
-        if(UserCredentials().role.includes("Lecturer")) {
+        if (UserCredentials().role.includes("Lecturer")) {
             setUserType("Lecturer");
-        } else if(UserCredentials().role.includes("Admin")) {
+        } else if (UserCredentials().role.includes("Admin")) {
             setUserType("Admin");
         }
         axios.get(`https://localhost:7240/course/${courseId}`, {}).then((response) => {
@@ -90,7 +88,7 @@ export default function CourseDetails() {
                                 }}
                             >
                                 {course &&
-                                    <img style={{maxHeight: "40vh"}} src={course.courseWithoutVideoDto.imageUrl}/>}
+                                    <img alt="course image" style={{maxHeight: "40vh"}} src={course.courseWithoutVideoDto.imageUrl}/>}
 
                             </Paper>
                         </Grid>
@@ -126,10 +124,10 @@ export default function CourseDetails() {
                                     <ListItem>
                                         <ListItemAvatar>
                                             <Avatar sx={{bgcolor: 'rgb(226, 94, 62)'}}>
-                                                <BookIcon/>
+                                                <VideocamIcon/>
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary="Chapters" secondary="20 hours"/>
+                                        {course && <ListItemText primary="Videos" secondary={course.videoDto.length}/>}
                                     </ListItem>
                                     <ListItem>
                                         <ListItemAvatar>
@@ -143,7 +141,9 @@ export default function CourseDetails() {
                                     <ListItem>
                                         {(userType === "Member") && <CourseEnrollButton courseId={courseId}/>}
                                     </ListItem>
-                                    {instructor && <ViewProfileDialog userName={instructor.userName} open={profileDialogOpen} onClose={handleProfileDialogClose}/>}
+                                    {instructor &&
+                                        <ViewProfileDialog userName={instructor.userName} open={profileDialogOpen}
+                                                           onClose={handleProfileDialogClose}/>}
                                 </List>
                             </Paper>
                         </Grid>
