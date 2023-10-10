@@ -11,41 +11,49 @@ import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import VideoEmbed from "../components/VideoEmbed";
 import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import UserCredentials from "../authentication/UserCredentials";
 
 
-const steps = [
-    {
-        label: 'Video 1',
-        description: `We learn bla bla.`,
-    },
-    {
-        label: 'Video 2',
-        description:
-            'We learn bla bla.',
-    },
-    {
-        label: 'Video 3',
-        description: `We learn bla bla.`,
-    }
-];
 
-function VerticalLinearStepper() {
-    const [activeStep, setActiveStep] = React.useState(0);
+
+function VerticalLinearStepper(props) {
+    let steps = props.steps;
+    let activeStep = props.activeStep;
+    let setActiveStep = props.setActiveStep;
+    let embedId = props.embedId;
+    let setEmbedId = props.setEmbedId;
+    let enrollment = props.enrollment;
 
     const handleStep = (stepNumber) => {
         setActiveStep(stepNumber);
+        setEmbedId(steps[stepNumber].url.split('?v=')[1]);
+        let completionRate = (((stepNumber) / (steps.length) ) * 100).toFixed(2);
+        console.log("completion rate" + completionRate);
+        axios.put('https://localhost:7240/Enrollment', {
+            id: enrollment.id,
+            completionPercentage: parseInt(completionRate)
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
     };
 
     return (
         <Box sx={{maxWidth: 400}}>
             <Stepper activeStep={activeStep} orientation="vertical">
-                {steps.map((step, index) => (
-                    <Step key={step.label}>
+                {steps && steps.map((step, index) => (
+                    <Step key={step.url}>
                         <StepLabel
                         >
                             <a onClick={() => {
                                 handleStep(index)
-                            }}>  {step.label}  </a>
+                            }}>  Lesson {index+1}  </a>
                         </StepLabel>
                         <StepContent>
                             <Typography>{step.description}</Typography>
@@ -54,14 +62,6 @@ function VerticalLinearStepper() {
                     </Step>
                 ))}
             </Stepper>
-            {activeStep === steps.length - 1 && (
-                <Paper square elevation={0} sx={{p: 3}}>
-                    <Typography>You've finished this course!</Typography>
-                    <Button sx={{mt: 1, mr: 1}}>
-                        Go To My Courses
-                    </Button>
-                </Paper>
-            )}
         </Box>
     );
 }
@@ -70,6 +70,33 @@ function VerticalLinearStepper() {
 export default function ConsumeContent(props) {
     let param = useParams();
     let courseId = param.courseId;
+    const [course, setCourse] = useState(null);
+    const [enrollment, setEnrollment] = useState(null);
+    const [steps, setSteps] = React.useState(null);
+    const [completionRate, setCompletionRate] = React.useState(null);
+    const [activeStep, setActiveStep] = React.useState(0);
+    const [embedId, setEmbedId] = useState(null);
+
+
+    useEffect(() => {
+        axios.get(`https://localhost:7240/course/${courseId}`, {}).then((response) => {
+                setCourse(response.data);
+                console.log(response.data);
+                setSteps(response.data.videoDto);
+
+                axios.get(`https://localhost:7240/Enrollment/user/${UserCredentials().username}`, {}).then((res) => {
+                    const results = res.data.filter(obj => {
+                        return obj.courseId === parseInt(courseId);
+                    });
+                    setEnrollment(results[0]);
+                    setCompletionRate(results[0].completionPercentage);
+                    setActiveStep(Math.ceil((response.data.videoDto.length) * ((results[0].completionPercentage)/100)) );
+                    setEmbedId(response.data.videoDto[Math.ceil((response.data.videoDto.length) * ((results[0].completionPercentage)/100))].url.split('?v=')[1]);
+                    }
+                )
+            }
+        )
+    }, []);
 
     return (
         <div>
@@ -92,7 +119,7 @@ export default function ConsumeContent(props) {
                                 <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
 
 
-                                    Course Info
+                                    {course && <Typography style={{fontSize: "40px"}}>{course.courseWithoutVideoDto.title}</Typography>}
 
                                 </Paper>
                             </Grid>
@@ -107,7 +134,7 @@ export default function ConsumeContent(props) {
                                     }}
                                 >
 
-                                    <VideoEmbed embedId="rokGy0huYEA"/>
+                                    <VideoEmbed embedId={embedId}/>
 
                                 </Paper>
                             </Grid>
@@ -124,7 +151,16 @@ export default function ConsumeContent(props) {
                                         msOverflowStyle: 'none'
                                     }}
                                 >
-                                    <VerticalLinearStepper/>
+                                    <VerticalLinearStepper  enrollment={enrollment} embedId={embedId} setEmbedId={setEmbedId} activeStep={activeStep} setActiveStep={setActiveStep} steps={steps}/>
+
+                                </Paper>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
+
+
+                                    {course && <Typography style={{fontSize: "25px"}}>{course.courseWithoutVideoDto.description}</Typography>}
 
                                 </Paper>
                             </Grid>

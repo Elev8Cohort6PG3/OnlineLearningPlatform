@@ -60,6 +60,7 @@ export default function EditUserProfile(props) {
                 console.log("AXIOS ERROR: ", err);
             })
         setEditDialogOpen(false);
+        window.location.reload();
     };
 
     const handleClickOpen = () => {

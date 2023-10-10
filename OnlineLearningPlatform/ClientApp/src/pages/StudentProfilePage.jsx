@@ -78,7 +78,7 @@ export default function StudentProfilePage(props) {
                 )
             }
         )
-    }, [editDialogOpen]);
+    }, []);
 
     return (
         <div id="ProfilePage">
