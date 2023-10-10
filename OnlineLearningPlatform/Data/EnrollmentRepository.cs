@@ -20,7 +20,7 @@ namespace OnlineLearningPlatform.Data
 			_courseRepository = courseRepository;
 		}
 
-		public void AddEnrollmentToCourse(AppUser appUser, int courseId)
+		public async Task AddEnrollmentToCourse(AppUser appUser, int courseId)
 		{
 			var enrollment = new Enrollment()
 			{
@@ -30,8 +30,8 @@ namespace OnlineLearningPlatform.Data
 				AppUserId = appUser.Id
 			};
 
-			var course = _courseRepository.GetCourseForModification(courseId);
-			course.Result.EnrollmentCount++;
+			var course = await _courseRepository.GetCourseForModification(courseId);
+			course.EnrollmentCount++;
 
 			_dataContext.Enrollments.Add(enrollment);
 		}
@@ -51,9 +51,20 @@ namespace OnlineLearningPlatform.Data
 				.SingleOrDefaultAsync();
 		}
 
-		/*public async Task<Enrollment> UpdateEnrollment(EnrollmentUpdateDto enrollmentUpdateDto)
+		public async Task<IEnumerable<EnrollmentDto>> GetAllEnrollmentsForUser(string username)
 		{
+			var query = from Enrollment in _dataContext.Set<Enrollment>()
+				join AppUser in _dataContext.Set<AppUser>()
+					on Enrollment.AppUserId equals AppUser.Id
+				where AppUser.UserName == username
+				select new EnrollmentDto()
+				{
+					Id = Enrollment.Id,
+					EnrollmentDate = Enrollment.EnrollmentDate,
+					CompletionPercentage = Enrollment.CompletionPercentage
+				};
 
-		}*/
+			return await query.ToListAsync();
+		}
 	}
 }
