@@ -8,12 +8,23 @@ import Typography from '@mui/material/Typography';
 import CourseBasicInfoForm from "../components/CourseBasicInfoForm";
 import CourseAdvancedInfoForm from "../components/CourseAdvancedInfoForm";
 import CoursePublishForm from "../components/CoursePublishForm";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import '../css/courseCRUD.css';
+import {useParams} from "react-router-dom";
+import axios from "axios";
+import UserCredentials from "../authentication/UserCredentials";
+import TextField from "@mui/material/TextField";
+import Unauthorized from "../authentication/Unauthorized";
 
 const steps = ['Course Information', 'Course Content', 'Finalize'];
 
 export default function CourseCRUD() {
+    let param = useParams();
+    let courseId = param.courseId;
+    const [instructorUsername, setInstructorUsername] = React.useState("");
+
+    const [editMode, setEditMode] = React.useState(false);
+    const [userIsAuthorized, setUserIsAuthorized] = React.useState(false);
     const [activeStep, setActiveStep] = React.useState(0);
     const [courseTitle, setCourseTitle] = React.useState("");
     const [courseDescription, setCourseDescription] = React.useState("");
@@ -24,7 +35,31 @@ export default function CourseCRUD() {
     ]);
 
 
+    useEffect(() => {
+        if (!(courseId === undefined)) {
+            setEditMode(true);
+            axios.get(`https://localhost:7240/course/${courseId}`, {}).then((response) => {
+                    console.log(response.data);
+                    setCourseTitle(response.data.courseWithoutVideoDto.title);
+                    setCourseDescription(response.data.courseWithoutVideoDto.description);
+                    setCourseCategory(response.data.courseWithoutVideoDto.category);
+                    setImageURL(response.data.courseWithoutVideoDto.imageUrl);
+                    setInputFields(response.data.videoDto);
+                    setInstructorUsername(response.data.userName);
+                    setUserIsAuthorized(response.data.userName === UserCredentials().username);
+
+                }
+            )
+
+        }
+    }, []);
+
+
     function getStepContent(step) {
+        if(!(userIsAuthorized)) {
+            let requiredRole = "This Course Belongs to " + instructorUsername;
+            return(<Unauthorized requiredRole={requiredRole}/>);
+        }
         switch (step) {
             case 0:
                 return <CourseBasicInfoForm courseTitle={courseTitle}
@@ -48,7 +83,7 @@ export default function CourseCRUD() {
                                           courseCategory={courseCategory}
                                           inputFields={inputFields}
                                           setActiveStep={setActiveStep}
-                                          imageURL={imageURL}
+                                          imageURL={imageURL} editMode={editMode} courseId={courseId}
                 />;
             default:
                 throw new Error('Unknown step');
