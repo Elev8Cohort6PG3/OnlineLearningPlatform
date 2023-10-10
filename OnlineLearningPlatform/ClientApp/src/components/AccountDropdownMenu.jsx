@@ -53,7 +53,7 @@ export default function AccountDropdownMenu() {
         } else if (event.currentTarget.innerText === "Profile") {
             window.location.assign("/profile")
         } else if (event.currentTarget.innerText === "Dashboard") {
-            window.location.assign("/profile")
+            window.location.assign("/instructor-dashboard")
         } else if (event.currentTarget.innerText === "Publish") {
             window.location.assign("/add-course")
         }

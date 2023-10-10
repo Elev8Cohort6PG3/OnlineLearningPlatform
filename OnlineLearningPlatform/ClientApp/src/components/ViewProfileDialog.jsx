@@ -11,11 +11,14 @@ import Face2Icon from '@mui/icons-material/Face2';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import PublishIcon from '@mui/icons-material/Publish';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function ViewProfileDialog(props) {
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`https://localhost:7240/users/${props.userName}`, {}).then((response) => {
@@ -86,6 +89,16 @@ export default function ViewProfileDialog(props) {
                                 </ListItemAvatar>)}
                             {(role === "student") && (
                                 <ListItemText primary={enrollmentCount} secondary="Courses Enrolled"/>)}
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disableGutters>
+                        <ListItemButton onClick={()=>{navigate(`/instructor-dashboard/${user.userName}`)}} sx={{height: "50px"}}>
+                            <ListItemAvatar>
+                                <Avatar sx={{bgcolor: 'rgb(226, 94, 62)'}}>
+                                    <AccountBoxIcon/>
+                                </Avatar>
+                            </ListItemAvatar>
+                            {user && <ListItemText primary="View Profile"/>}
                         </ListItemButton>
                     </ListItem>
                 </List>
