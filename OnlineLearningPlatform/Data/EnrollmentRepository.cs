@@ -38,10 +38,21 @@ namespace OnlineLearningPlatform.Data
 
 		public async Task<EnrollmentDto> GetEnrollmentDto(int id)
 		{
-			return await _dataContext.Enrollments
-				.Where(e => e.Id == id)
-				.ProjectTo<EnrollmentDto>(_mapper.ConfigurationProvider)
-				.SingleOrDefaultAsync();
+			var query = from enrollment in _dataContext.Set<Enrollment>()
+				join appUser in _dataContext.Set<AppUser>()
+					on enrollment.AppUserId equals appUser.Id
+				join course in _dataContext.Set<Course>() on enrollment.CourseId equals course.Id
+				where course.Id == id
+				select new EnrollmentDto()
+				{
+					Id = enrollment.Id,
+					EnrollmentDate = enrollment.EnrollmentDate,
+					CompletionPercentage = enrollment.CompletionPercentage,
+					AppUserId = appUser.Id,
+					CourseId = course.Id
+				};
+
+			return await query.FirstOrDefaultAsync();
 		}	
 		
 		public async Task<Enrollment> GetEnrollment(int id)
@@ -53,15 +64,18 @@ namespace OnlineLearningPlatform.Data
 
 		public async Task<IEnumerable<EnrollmentDto>> GetAllEnrollmentsForUser(string username)
 		{
-			var query = from Enrollment in _dataContext.Set<Enrollment>()
-				join AppUser in _dataContext.Set<AppUser>()
-					on Enrollment.AppUserId equals AppUser.Id
-				where AppUser.UserName == username
-				select new EnrollmentDto()
+			var query = from enrollment in _dataContext.Set<Enrollment>()
+				join appUser in _dataContext.Set<AppUser>()
+					on enrollment.AppUserId equals appUser.Id
+				join course in _dataContext.Set<Course>() on enrollment.CourseId equals course.Id 
+				where appUser.UserName == username
+				select  new EnrollmentDto()
 				{
-					Id = Enrollment.Id,
-					EnrollmentDate = Enrollment.EnrollmentDate,
-					CompletionPercentage = Enrollment.CompletionPercentage
+					Id = enrollment.Id,
+					EnrollmentDate = enrollment.EnrollmentDate,
+					CompletionPercentage = enrollment.CompletionPercentage,
+					AppUserId = appUser.Id,
+					CourseId = course.Id
 				};
 
 			return await query.ToListAsync();
