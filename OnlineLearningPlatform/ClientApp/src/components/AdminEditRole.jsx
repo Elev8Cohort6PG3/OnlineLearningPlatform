@@ -4,9 +4,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import axios from 'axios';
-import MenuItem from '@mui/material/MenuItem';
 
 import UserCredentials from "../authentication/UserCredentials";
 
@@ -15,19 +15,20 @@ const EditRolesButton = (props) => {
   const [editRolesDialogOpen, setEditRolesDialogOpen] = useState(false);
   const [userRoles, setUserRoles] = useState([]);
   const [selectedRoles, setSelectedRoles] = useState([]);
-  const hardcodedRoles = ['Admin', 'Member', 'Lecturer']; // Define your hardcoded roles here
+  const hardcodedRoles = ['Admin', 'Member', 'Lecturer']; //hardcoded roles
 
   useEffect(() => {
     if (editRolesDialogOpen) {
-      // You can fetch user roles for the current user here if needed
-      // ...
-      // For this example, we're not fetching user roles as you requested hardcoded roles.
+      setSelectedRoles(userRoles.map((role) => role.role) || []);
     }
-  }, [editRolesDialogOpen, userName]);
+  }, [editRolesDialogOpen, userName, userRoles]);
 
-  const handleRoleChange = (event) => {
-    const { value } = event.target;
-    setSelectedRoles([value]);
+  const handleRoleToggle = (role) => {
+    if (selectedRoles.includes(role)) {
+      setSelectedRoles(selectedRoles.filter((r) => r !== role));
+    } else {
+      setSelectedRoles([...selectedRoles, role]);
+    }
   };
 
   const handleSubmit = () => {
@@ -68,22 +69,20 @@ const EditRolesButton = (props) => {
       <Dialog open={editRolesDialogOpen} onClose={handleClose}>
         <DialogTitle>Edit Roles for {userName}</DialogTitle>
         <DialogContent>
-          <TextField
-            margin="dense"
-            id="roles"
-            label="Roles"
-            select
-            fullWidth
-            variant="standard"
-            value={selectedRoles}
-            onChange={handleRoleChange}
-          >
-            {hardcodedRoles.map((role) => (
-              <MenuItem key={role} value={role}>
-                {role}
-              </MenuItem>
-            ))}
-          </TextField>
+          {hardcodedRoles.map((role) => (
+            <FormControlLabel
+              key={role}
+              control={
+                <Checkbox
+                  checked={selectedRoles.includes(role)}
+                  onChange={() => handleRoleToggle(role)}
+                  name={role}
+                  color="primary"
+                />
+              }
+              label={role}
+            />
+          ))}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
