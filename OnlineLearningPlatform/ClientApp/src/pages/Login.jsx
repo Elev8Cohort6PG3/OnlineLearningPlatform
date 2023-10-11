@@ -51,7 +51,6 @@ export default function Login(props) {
                     localStorage.setItem('jwtToken', JSON.stringify(token));
                     localStorage.setItem('role', JSON.stringify(decodedToken.role));
                     localStorage.setItem('username', JSON.stringify(decodedToken.unique_name));
-                    localStorage.setItem('nameId', JSON.stringify(decodedToken.nameid));
                     setLoginSuccessful(true);
                     if(redirectURL === undefined && !(UserCredentials().role.includes("Lecturer") || UserCredentials().role.includes("Admin") )) {
                         setTimeout(

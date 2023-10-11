@@ -4,8 +4,7 @@ export default function UserCredentials() {
         isLoggedIn: false,
         username: "User Logged Out",
         role: ["User Logged Out"],
-        token: "User Logged Out",
-        id: -1
+        token: "User Logged Out"
     }
 
     if (!(localStorage.username === undefined)) {
@@ -26,8 +25,7 @@ export default function UserCredentials() {
             isLoggedIn: true,
             username: localStorage.username.slice(1, -1),
             role: processedRole,
-            token: localStorage.jwtToken.slice(1, -1),
-            id: parseInt(localStorage.nameId.slice(1, -1))
+            token: localStorage.jwtToken.slice(1, -1)
         }
         console.log(user);
         return user;
