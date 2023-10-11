@@ -13,6 +13,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import UserCredentials from "../authentication/UserCredentials";
+import Button from "@mui/material/Button";
 
 
 
@@ -43,6 +44,22 @@ function VerticalLinearStepper(props) {
 
     };
 
+    const handleFinish = () => {
+        let completionRate = 100;
+        console.log("completion rate" + completionRate);
+        axios.put('https://localhost:7240/Enrollment', {
+            id: enrollment.id,
+            completionPercentage: parseInt(completionRate)
+        })
+            .then(function (response) {
+                console.log(response);
+                window.location.assign("/student-dashboard");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
     return (
         <Box sx={{maxWidth: 400}}>
             <Stepper activeStep={activeStep} orientation="vertical">
@@ -60,6 +77,14 @@ function VerticalLinearStepper(props) {
                         </StepContent>
                     </Step>
                 ))}
+                {steps && activeStep === steps.length-1 && (
+                    <Paper elevation={0} sx={{ p: 3 }}>
+                        <Typography style={{fontSize: "12px"}}>Click to Finish this Course!</Typography>
+                        <Button className="nextButton" onClick={()=>{handleFinish()}} sx={{ mt: 1, mr: 1 }}>
+                            Finish
+                        </Button>
+                    </Paper>
+                )}
             </Stepper>
         </Box>
     );

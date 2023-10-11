@@ -1,5 +1,6 @@
 .nextButton {
     background-color: rgb(255, 155, 80) !important;
+    color: whitesmoke !important;
 }
 
 .nextButton:hover {
