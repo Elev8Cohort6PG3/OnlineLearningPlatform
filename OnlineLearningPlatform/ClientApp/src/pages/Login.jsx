@@ -53,7 +53,17 @@ export default function Login(props) {
                     localStorage.setItem('username', JSON.stringify(decodedToken.unique_name));
                     localStorage.setItem('nameId', JSON.stringify(decodedToken.nameid));
                     setLoginSuccessful(true);
-                    if(redirectURL === undefined) {
+                    if(redirectURL === undefined && !(UserCredentials().role.includes("Lecturer") || UserCredentials().role.includes("Admin") )) {
+                        setTimeout(
+                            () => window.location.assign("/student-dashboard"),
+                            1000
+                        );
+                    } else if (redirectURL === undefined && UserCredentials().role.includes("Lecturer") && !(UserCredentials().role.includes("Admin"))  ) {
+                        setTimeout(
+                            () => window.location.assign("/instructor-dashboard"),
+                            1000
+                        );
+                    } else if (redirectURL === undefined) {
                         setTimeout(
                             () => window.location.assign("/"),
                             1000

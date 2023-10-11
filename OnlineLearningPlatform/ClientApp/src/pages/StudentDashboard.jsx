@@ -70,21 +70,11 @@ export default function StudentDashboard() {
     return (
         <div id="ProfilePage">
             <Grid container>
-                <Grid item className='col' xs={12} sm={12}>
-                    <div className="profile">
-                        {student && <Avatar src="https://source.unsplash.com/random?wallpapers?9"
-                                            sx={{width: 108, height: 108}}>{student.userName}</Avatar>}
-                        {student && <h4>{student.userName}</h4>}
-                    </div>
-                    <Grid item xs={12} sm={12} display="flex" justifyContent="center">
-                        {student &&
-                            <Typography><p>{student.firstName}</p><p>{student.lastName}</p></Typography>}
-                        {student && courses && <Typography><p>Enrolled Courses: {courses.length}</p></Typography>}
-                    </Grid>
-
+                <Grid item className='col' display="flex" justifyContent="center" xs={12} sm={12}>
+                    <h1>Available Courses</h1>
                 </Grid>
                 <Grid item className='col' xs={12} sm={12}>
-                    <h3>Available Courses</h3>
+
                     <Grid container>
                         {allCourses && allCourses.map((course, index) => (
                             <CourseCard courseInfo={course}/>
@@ -92,7 +82,9 @@ export default function StudentDashboard() {
                     </Grid>
                 </Grid>
                 <Grid item className='col' xs={12} sm={12}>
-                    <h3>My Courses</h3>
+                    <Grid item className='col' display="flex" justifyContent="center" xs={12} sm={12}>
+                        <h1>Enrolled Courses</h1>
+                    </Grid>
                     <Grid container>
                         {courseIdsArray && courseIdsArray.map((courseId, index) => (
                             <CourseCard courseId={courseId}/>
