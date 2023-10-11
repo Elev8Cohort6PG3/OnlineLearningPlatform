@@ -38,6 +38,17 @@ namespace OnlineLearningPlatform.Controllers
 			return Ok(enrollments);
 		}
 
+		[HttpGet]
+		public async Task<ActionResult<double>> GetCompletionRate([FromQuery] int userId, [FromQuery] int courseId)
+		{
+			var completionRate = await _unitOfWork.EnrollmentRepository.GetCompletionRate(userId, courseId);
+
+			if (completionRate == null) return NotFound("Failed to find the completion rate");
+
+			return Ok(completionRate);
+
+		}
+
 		[HttpPost("{courseId:int}")]
 		public async Task<ActionResult> AddEnrollmentToCourse(int courseId)
 		{

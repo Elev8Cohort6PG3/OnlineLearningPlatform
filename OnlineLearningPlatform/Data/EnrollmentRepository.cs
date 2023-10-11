@@ -85,5 +85,18 @@ namespace OnlineLearningPlatform.Data
 		{
 			_dataContext.Enrollments.Remove(enrollment);
 		}
+
+		public async Task<double> GetCompletionRate(int userId, int courseId)
+		{
+			var query = from enrollment in _dataContext.Set<Enrollment>()
+				join appUser in _dataContext.Set<AppUser>()
+					on enrollment.AppUserId equals appUser.Id
+				join course in _dataContext.Set<Course>()
+					on enrollment.CourseId equals course.Id
+				where appUser.Id == userId && course.Id == courseId
+				select enrollment.CompletionPercentage;
+
+			return await query.FirstOrDefaultAsync();
+		}
 	}
 }
