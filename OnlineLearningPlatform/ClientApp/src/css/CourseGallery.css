@@ -1,6 +1,11 @@
-body{
-    background-image: url('https://img.freepik.com/free-vector/geometric-pattern-with-lines-dots-3d-effect_1319-93.jpg');
-    backdrop-filter: blur(4px);
+
+
+#CourseGallery {
+
+
+        background-image: url('https://img.freepik.com/free-vector/geometric-pattern-with-lines-dots-3d-effect_1319-93.jpg');
+        backdrop-filter: blur(4px);
+
 }
 
 .courseShowcaseContainer1 {

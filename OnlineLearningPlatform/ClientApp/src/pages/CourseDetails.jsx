@@ -28,7 +28,7 @@ export default function CourseDetails() {
     const [course, setCourse] = useState(null);
     const [instructor, setInstructor] = useState(null);
     const [userType, setUserType] = useState("Member");
-
+    const [enrollmentCount, setEnrollmentCount] = useState(0);
 
     useEffect(() => {
         if (UserCredentials().role.includes("Lecturer")) {
@@ -39,10 +39,17 @@ export default function CourseDetails() {
         axios.get(`https://localhost:7240/course/${courseId}`, {}).then((response) => {
                 setCourse(response.data);
                 console.log(response.data);
-
                 axios.get(`https://localhost:7240/users/${response.data.userName}`, {}).then((response) => {
                         setInstructor(response.data);
                         console.log(response.data);
+                        axios.get(`https://localhost:7240/Enrollment/course/${courseId}`, {}).then((response) => {
+                                console.log(response.data);
+                                if (response.data.length !== undefined) {
+                                    setEnrollmentCount(response.data.length);
+                                }
+                                console.log(response.data);
+                            }
+                        )
                     }
                 )
             }
@@ -58,7 +65,7 @@ export default function CourseDetails() {
         setProfileDialogOpen(true);
     };
 
-    let enrolledStudentsString = "10" + " Students Enrolled";
+    let enrolledStudentsString = enrollmentCount + " Students Enrolled";
 
     return (
 
@@ -88,7 +95,8 @@ export default function CourseDetails() {
                                 }}
                             >
                                 {course &&
-                                    <img alt="course image" style={{maxHeight: "40vh"}} src={course.courseWithoutVideoDto.imageUrl}/>}
+                                    <img alt="course image" style={{maxHeight: "40vh"}}
+                                         src={course.courseWithoutVideoDto.imageUrl}/>}
 
                             </Paper>
                         </Grid>

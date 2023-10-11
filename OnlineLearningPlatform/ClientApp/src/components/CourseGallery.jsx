@@ -23,7 +23,7 @@ export default function CourseGallery(props) {
     }, []);
 
     return (
-        <Grid container display="flex" justifyContent="center" xs={12}>
+        <Grid id="CourseGallery" container display="flex" justifyContent="center" xs={12}>
             <Grid xs={12} item display="flex" justifyContent="center" style={{marginTop: 40, marginBottom: 40}}>
                 <h2 className="featuredCoursesText">Featured Courses</h2>
             </Grid>
@@ -41,7 +41,7 @@ export default function CourseGallery(props) {
                                 <CardContent style={{display: "flex", justifyContent: "center", height: 60}}
                                              className="transparentBackground blur">
                                     <Typography gutterBottom variant="h5" component="div">
-                                        Lesson 1
+                                        Learn Crud Basics
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -61,7 +61,7 @@ export default function CourseGallery(props) {
                                 <CardContent style={{display: "flex", justifyContent: "center", height: 60}}
                                              className="transparentBackground blur">
                                     <Typography gutterBottom variant="h5" component="div">
-                                        Lesson 1
+                                        Learn JavaScript Basics
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -81,7 +81,7 @@ export default function CourseGallery(props) {
                                 <CardContent style={{display: "flex", justifyContent: "center", height: 60}}
                                              className="transparentBackground blur">
                                     <Typography gutterBottom variant="h5" component="div">
-                                        Lesson 1
+                                        Learn JavaScript Advanced
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -101,7 +101,7 @@ export default function CourseGallery(props) {
                                 <CardContent style={{display: "flex", justifyContent: "center", height: 60}}
                                              className="transparentBackground blur">
                                     <Typography gutterBottom variant="h5" component="div">
-                                        Lesson 1
+                                        Learn HTML5
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -121,7 +121,7 @@ export default function CourseGallery(props) {
                                 <CardContent style={{display: "flex", justifyContent: "center", height: 60}}
                                              className="transparentBackground blur">
                                     <Typography gutterBottom variant="h5" component="div">
-                                        Lesson 1
+                                        Learn React.js
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
