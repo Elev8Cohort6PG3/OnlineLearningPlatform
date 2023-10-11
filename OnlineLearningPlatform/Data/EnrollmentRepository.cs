@@ -41,8 +41,9 @@ namespace OnlineLearningPlatform.Data
 			var query = from enrollment in _dataContext.Set<Enrollment>()
 				join appUser in _dataContext.Set<AppUser>()
 					on enrollment.AppUserId equals appUser.Id
-				join course in _dataContext.Set<Course>() on enrollment.CourseId equals course.Id
-				where course.Id == id
+				join course in _dataContext.Set<Course>() 
+					on enrollment.CourseId equals course.Id
+				where enrollment.Id == id
 				select new EnrollmentDto()
 				{
 					Id = enrollment.Id,
@@ -69,6 +70,26 @@ namespace OnlineLearningPlatform.Data
 					on enrollment.AppUserId equals appUser.Id
 				join course in _dataContext.Set<Course>() on enrollment.CourseId equals course.Id 
 				where appUser.UserName == username
+				select  new EnrollmentDto()
+				{
+					Id = enrollment.Id,
+					EnrollmentDate = enrollment.EnrollmentDate,
+					CompletionPercentage = enrollment.CompletionPercentage,
+					AppUserId = appUser.Id,
+					CourseId = course.Id
+				};
+
+			return await query.ToListAsync();
+		}
+		
+		public async Task<IEnumerable<EnrollmentDto>> GetAllEnrollmentsForCourse(int courseId)
+		{
+			var query = from enrollment in _dataContext.Set<Enrollment>()
+				join appUser in _dataContext.Set<AppUser>()
+					on enrollment.AppUserId equals appUser.Id
+				join course in _dataContext.Set<Course>() 
+					on enrollment.CourseId equals course.Id 
+				where enrollment.CourseId == courseId
 				select  new EnrollmentDto()
 				{
 					Id = enrollment.Id,
