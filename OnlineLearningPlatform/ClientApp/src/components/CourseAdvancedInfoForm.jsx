@@ -35,6 +35,12 @@ export default function CourseAdvancedInfoForm(props) {
     const submit = (e) => {
         e.preventDefault();
         console.log(inputFields);
+        for(let i = 0; inputFields.length > i; i++){
+           if(!(inputFields[i].url.includes("?v="))) {
+               alert("Provide a valid Youtube link ending with ?v=xxxxxx");
+               return;
+           }
+        }
         setActiveStep(2);
     }
 

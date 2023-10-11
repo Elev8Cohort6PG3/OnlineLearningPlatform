@@ -9,6 +9,11 @@ export default function CourseBasicInfoForm(props) {
     const {courseTitle, setCourseTitle, courseDescription, setCourseDescription, courseCategory, setCourseCategory, imageURL, setImageURL, activeStep, setActiveStep} = props;
     const handleSubmit = (event) => {
         event.preventDefault();
+        let imgUrl = document.getElementById("imageURL").value;
+        if(!(imgUrl.match(/\.(jpeg|jpg|gif|png)$/) != null)) {
+            alert("Please provide a valid image link!");
+            return;
+        }
         setActiveStep(1);
     }
 
