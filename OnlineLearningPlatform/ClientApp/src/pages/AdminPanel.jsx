@@ -8,7 +8,8 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import UserCredentials from "../authentication/UserCredentials";
-import EditButton from "../components/AdminEditUser";
+//import EditButton from "../components/AdminEditUser";
+import EditRolesButton from "../components/AdminEditRole";
 
 
 export default function AdminPanel(props) {
@@ -110,7 +111,7 @@ export default function AdminPanel(props) {
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>
-              <EditButton userName={user.userName} />
+              <EditRolesButton userName={user.userName} />
               </td>
             </tr>
           ))}
