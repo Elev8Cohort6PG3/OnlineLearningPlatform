@@ -56,6 +56,7 @@ export default function InstructorSignUp() {
                 localStorage.setItem('jwtToken', JSON.stringify(token));
                 localStorage.setItem('role', JSON.stringify(decodedToken.role));
                 localStorage.setItem('username', JSON.stringify(decodedToken.unique_name));
+                localStorage.setItem('nameId', JSON.stringify(decodedToken.nameid));
                 setRegisterSuccessful(true);
                 setTimeout(
                     () => window.location.assign("/"),
