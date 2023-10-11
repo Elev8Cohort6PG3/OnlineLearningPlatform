@@ -1,0 +1,90 @@
+body{
+    background-image: url('https://img.freepik.com/free-vector/geometric-pattern-with-lines-dots-3d-effect_1319-93.jpg');
+    backdrop-filter: blur(4px);
+}
+
+.courseShowcaseContainer1 {
+    position: absolute;
+    margin-right: 600px;
+    z-index: 8;
+    transition: ease-in 0.2s;
+    scale: 0.8;
+}
+
+.courseShowcaseContainer1:hover {
+    margin-right: 500px;
+    z-index: 15;
+    scale: 1;
+}
+
+.courseShowcaseContainer2 {
+    position: absolute;
+    margin-right: 300px;
+    z-index: 9;
+    transition: ease-in 0.2s;
+    scale: 0.9;
+}
+
+.courseShowcaseContainer2:hover {
+    margin-right: 200px;
+    z-index: 15;
+    scale: 1;
+}
+
+.courseShowcaseContainer3 {
+    position: absolute;
+    z-index: 10;
+    transition: ease-in 0.2s;
+
+}
+
+.courseShowcaseContainer3:hover {
+    scale: 1.1;
+
+}
+
+.courseShowcaseContainer4 {
+    position: absolute;
+    margin-left: 300px;
+    z-index: 9;
+    transition: ease-in 0.2s;
+    scale: 0.9;
+}
+.courseShowcaseContainer4:hover{
+    margin-left: 200px;
+    z-index: 15;
+    scale: 1;
+}
+
+.courseShowcaseContainer5 {
+    position: absolute;
+    margin-left: 600px;
+    z-index: 8;
+    transition: ease-in 0.2s;
+    scale: 0.8;
+}
+.courseShowcaseContainer5:hover {
+    margin-left: 500px;
+    z-index: 15;
+    scale: 1;
+}
+
+.featuredCoursesText {
+    color: rgb(226, 94, 62);
+    font-size: 60px;
+    font-family: 'Trocchi', serif;
+    font-weight: normal;
+    line-height: 48px;
+    margin: 0;
+}
+
+.transparentBackground{
+    background-color: rgba(154, 22, 22, 0);
+}
+.blur {
+    backdrop-filter: blur(8px);
+}
+
+.dropShadow {
+    filter: drop-shadow(10px 11px 25px rgba(151, 87, 59, 0.63));
+}
