@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import CourseDeleteDialog from "./CourseDeleteDialog";
 import axios from "axios";
+import LinearProgressBar from "./LinearProgressBar";
 
 export default function CourseCard(props) {
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ export default function CourseCard(props) {
 
         if(!(courseId === undefined)) {
             axios.get(`https://localhost:7240/course/${courseId}`).then((response)=>{
+                response.data.completionRate = 50;
                 setCourseGotByCourseId(response.data);
             })
         }
@@ -97,6 +99,7 @@ export default function CourseCard(props) {
                                 style={{textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap"}}>
                         {courseGotByCourseId.courseWithoutVideoDto.description}
                     </Typography>
+                    <LinearProgressBar value={courseGotByCourseId.completionRate}/>
                 </CardContent>}
                 {instructorPageCourseCard && currentUserIsAuthorized && props.courseInfo && <CardActions>
                     <Button sx={{color: "white", marginRight: 6}} onClick={()=>{navigate(`/edit-course/${courseBasics.id}`)}}>Edit Course</Button>
