@@ -10,6 +10,7 @@ namespace OnlineLearningPlatform.Interfaces
 		Task<Enrollment> GetEnrollment(int id);
 		Task<IEnumerable<EnrollmentDto>> GetAllEnrollmentsForUser(string username);
 		void DeleteEnrollment(Enrollment enrollment);
+		Task<double> GetCompletionRate(int userId, int courseId);
 
 	}
 }
