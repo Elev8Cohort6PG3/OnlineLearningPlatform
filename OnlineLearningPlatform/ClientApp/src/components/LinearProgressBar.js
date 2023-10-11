@@ -24,6 +24,7 @@ export default function LinearProgressBar(props) {
     }, []);
     return (
         <Box sx={{ flexGrow: 1, marginTop: 2 }}>
+            <h4>Completion: {value}%</h4>
             <BorderLinearProgress variant="determinate" value={value} />
         </Box>
     );

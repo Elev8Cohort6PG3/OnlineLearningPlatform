@@ -11,6 +11,7 @@ import {useNavigate} from "react-router-dom";
 import CourseDeleteDialog from "./CourseDeleteDialog";
 import axios from "axios";
 import LinearProgressBar from "./LinearProgressBar";
+import UserCredentials from "../authentication/UserCredentials";
 
 export default function CourseCard(props) {
     const navigate = useNavigate();
@@ -35,10 +36,21 @@ export default function CourseCard(props) {
 
         if(!(courseId === undefined)) {
             axios.get(`https://localhost:7240/course/${courseId}`).then((response)=>{
-                response.data.completionRate = 50;
-                setCourseGotByCourseId(response.data);
+
+
+                axios.get(`https://localhost:7240/Enrollment/user/${UserCredentials().username}`, {}).then((res) => {
+                        const results = res.data.filter(obj => {
+                            return obj.courseId === parseInt(courseId);
+                        });
+                    response.data.completionRate = results[0].completionPercentage;
+                    setCourseGotByCourseId(response.data);
+
+
+                    }
+                )
             })
         }
+
     }, []);
 
 
