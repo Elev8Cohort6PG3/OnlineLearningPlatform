@@ -38,6 +38,16 @@ namespace OnlineLearningPlatform.Controllers
 			return Ok(enrollments);
 		}
 
+		[HttpGet("course/{courseId:int}")]
+		public async Task<ActionResult<IEnumerable<EnrollmentDto>>> GetAllEnrollmentsForCourse(int courseId)
+		{
+			var courses = await _unitOfWork.EnrollmentRepository.GetAllEnrollmentsForCourse(courseId);
+
+			if (courses == null) return NotFound("Failed to find courses");
+
+			return Ok(courses);
+		}
+
 		[HttpGet]
 		public async Task<ActionResult<double>> GetCompletionRate([FromQuery] int userId, [FromQuery] int courseId)
 		{
