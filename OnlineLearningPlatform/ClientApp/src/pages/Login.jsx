@@ -54,12 +54,12 @@ export default function Login(props) {
                     setLoginSuccessful(true);
                     if(redirectURL === undefined && !(UserCredentials().role.includes("Lecturer") || UserCredentials().role.includes("Admin") )) {
                         setTimeout(
-                            () => window.location.assign("/student-dashboard"),
+                            () => window.location.assign("/"),
                             1000
                         );
                     } else if (redirectURL === undefined && UserCredentials().role.includes("Lecturer") && !(UserCredentials().role.includes("Admin"))  ) {
                         setTimeout(
-                            () => window.location.assign("/instructor-dashboard"),
+                            () => window.location.assign("/"),
                             1000
                         );
                     } else if (redirectURL === undefined) {

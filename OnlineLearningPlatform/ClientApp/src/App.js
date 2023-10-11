@@ -16,6 +16,8 @@ import Search from "./pages/Search";
 import InstructorProfilePage from "./pages/InstructorProfilePage";
 import AdminPanel from './pages/AdminPanel';
 import StudentDashboard from "./pages/StudentDashboard";
+import CourseGallery from "./components/CourseGallery";
+import HomeRouter from "./routers/HomeRouter";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -25,7 +27,7 @@ export default class App extends Component {
         return (
             <Layout>
                 <Routes>
-                    <Route index={true} element={<Home />}/>
+                    <Route index={true} element={<HomeRouter />}/>
                     <Route path="/login" element={<Login />}/>
                     <Route path="/signup" element={<SignUp/>} />
                     <Route path="/instructor-signup" element={<InstructorSignUp/>}/>
