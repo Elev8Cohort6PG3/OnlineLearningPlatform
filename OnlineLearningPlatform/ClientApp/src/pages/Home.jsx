@@ -34,12 +34,43 @@ export default function Home(props) {
           <div id="MainText">
             {isLoggedIn ? (
               <><h2>Welcome back!</h2>
-              {role === 'Member' && (
+              {role[2] === 'Lecturer' && role[1] === 'Admin' && role[0] === 'Member' &&(
+                <><Button
+                    variant="contained"
+                    className="button"
+                    size="large"
+                    href="/admin-panel"
+                    sx={{ mt: 1, mb: 2, marginRight: 2 }}
+                  >
+                    Go to Admin Panel
+                  </Button><Button
+                    variant="contained"
+                    className="button"
+                    size="large"
+                    href="/instructor-dashboard"
+                    sx={{ mt: 1, mb: 2, marginRight: 2 }}
+                  >
+                      Go to Lecturer Dashboard
+                    </Button></>           
+              )}
+              {role[1] === 'Lecturer' && role[0] === 'Member' &&(
                 <Button
                   variant="contained"
                   className="button"
                   size="large"
-                  href="/member-dashboard"
+                  href="/instructor-dashboard"
+                  sx={{ mt: 1, mb: 2, marginRight: 2 }}
+                >
+                  Go to Lecturer Dashboard
+                </Button>
+                
+              )}
+              {role[0] === 'Member' && (
+                <Button
+                  variant="contained"
+                  className="button"
+                  size="large"
+                  href="/student-dashboard"
                   sx={{ mt: 1, mb: 2, marginRight: 2 }}
                 >
                   Go to Student Dashboard
@@ -66,7 +97,9 @@ export default function Home(props) {
                 >
                   Lecturer Dashboard
                 </Button>
-              )}</>
+                
+              )}
+              </>
             ) : (
               <div>
                 <h2>Start your journey</h2>
