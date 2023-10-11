@@ -13,6 +13,7 @@ const ITEM_HEIGHT = 48;
 export default function AccountDropdownMenu() {
     const [options, setOptions] = useState([
         'Profile',
+        'Student Dashboard',
         'Logout',
     ]);
 
@@ -66,6 +67,8 @@ export default function AccountDropdownMenu() {
             window.location.assign("/add-course")
         }else if (event.currentTarget.innerText === "Admin Panel") {
             window.location.assign("/admin-panel")
+        }else if (event.currentTarget.innerText === "Student Dashboard") {
+            window.location.assign("/student-dashboard")
         }
     };
 
