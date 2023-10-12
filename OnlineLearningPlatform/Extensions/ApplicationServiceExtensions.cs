@@ -15,11 +15,6 @@ namespace OnlineLearningPlatform.Extensions
 				opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
 			});
 
-			/*services.ConfigureHttpJsonOptions(opt =>
-			{
-				opt.SerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-			});*/
-
 			services.AddCors();
 
 			services.AddScoped<ITokenService, TokenService>();
