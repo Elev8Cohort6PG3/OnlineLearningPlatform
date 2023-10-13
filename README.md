@@ -15,10 +15,10 @@ Table of Contents
 7.	Security
 8.	Appendix
 
-1.	Introduction
+##	Introduction
 This guide provides an overview of the platform's features and instructions for users.
 
-2.	Getting Started
+##	Getting Started
 Registration and Login
 To get started, you need to create an account and log in to access courses.
 
@@ -34,7 +34,7 @@ Login
 User Proﬁle
 Once logged in, you can manage your proﬁle information, including your name and email.
 
-3.	Course Management
+##	Course Management
 Course Catalog
 Browse available courses, view details, and enroll in courses. Viewing Courses
  
@@ -54,7 +54,7 @@ Progress Tracking
 1.	In the "My Courses" section, view your enrolled courses.
 2.	Check your course progress and completion percentage.
 
-4. Frontend Development
+## Frontend Development
 
 React-based web application was implemented. Overall, the code reﬂects a web application that allows users to explore and consume course content. It also provides course management capabilities for authorized users and showcases customer reviews on the homepage. The application utilizes Material-UI for its user interface components and Axios for making API requests.
 
@@ -133,7 +133,7 @@ React-based web application was implemented. Overall, the code reﬂects a web a
 -	Display a list of enrolled courses.
 -	Allow authorized students to edit their proﬁles.
 
-5. Backend Development
+## Backend Development
 
 Backend Description:
 
@@ -175,7 +175,7 @@ It is built using ASP.NET Core and focuses on user management, course management
 -	`PUT`: Updates user details.
 -	Deals with user management and allows retrieving member details, listing members, and updating member information. It is responsible for CRUD operations related to users.
  
-6.	Security
+##	Security
 
 1.	User Authentication and Authorization:
 
@@ -205,7 +205,7 @@ It is built using ASP.NET Core and focuses on user management, course management
 
 By implementing these security measures, our Online Learning Platform aims to provide a safe and secure environment for both users and their data.
 
-7.	Appendix
+##	Appendix
 Glossary
 -	Admin: Administrative role with system-wide access.
 -	Instructor: Role for course creators and instructors.
