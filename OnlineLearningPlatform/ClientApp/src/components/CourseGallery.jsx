@@ -28,7 +28,7 @@ export default function CourseGallery(props) {
                 <h2 className="featuredCoursesText">Featured Courses</h2>
             </Grid>
             <Grid xs={12} item container display="flex" justifyContent="center" style={{minHeight: 700}}>
-                <div className="courseShowcaseContainer1" onClick={()=>{window.location.assign("/course-details/1")}}>
+                <div className="courseShowcaseContainer1" onClick={()=>{window.location.assign("/course-details/12")}}>
                     <Paper style={{width: 450}} className="transparentBackground dropShadow">
                         <Card sx={{width: 450}} className="transparentBackground">
                             <CardActionArea>
@@ -48,7 +48,7 @@ export default function CourseGallery(props) {
                         </Card>
                     </Paper>
                 </div>
-                <div className="courseShowcaseContainer2" onClick={()=>{window.location.assign("/course-details/2")}}>
+                <div className="courseShowcaseContainer2" onClick={()=>{window.location.assign("/course-details/13")}}>
                     <Paper style={{width: 450}} className="transparentBackground dropShadow">
                         <Card sx={{width: 450}} className="transparentBackground">
                             <CardActionArea>
@@ -68,7 +68,7 @@ export default function CourseGallery(props) {
                         </Card>
                     </Paper>
                 </div>
-                <div className="courseShowcaseContainer3" onClick={()=>{window.location.assign("/course-details/3")}}>
+                <div className="courseShowcaseContainer3" onClick={()=>{window.location.assign("/course-details/14")}}>
                     <Paper style={{width: 450}} className="transparentBackground dropShadow">
                         <Card sx={{width: 450}} className="transparentBackground">
                             <CardActionArea>
@@ -88,7 +88,7 @@ export default function CourseGallery(props) {
                         </Card>
                     </Paper>
                 </div>
-                <div className="courseShowcaseContainer4" onClick={()=>{window.location.assign("/course-details/4")}}>
+                <div className="courseShowcaseContainer4" onClick={()=>{window.location.assign("/course-details/16")}}>
                     <Paper style={{width: 450}} className="transparentBackground dropShadow">
                         <Card sx={{width: 450}} className="transparentBackground">
                             <CardActionArea>
@@ -108,7 +108,7 @@ export default function CourseGallery(props) {
                         </Card>
                     </Paper>
                 </div>
-                <div className="courseShowcaseContainer5" onClick={()=>{window.location.assign("/course-details/5")}}>
+                <div className="courseShowcaseContainer5" onClick={()=>{window.location.assign("/course-details/17")}}>
                     <Paper style={{width: 450}} className="transparentBackground dropShadow">
                         <Card sx={{width: 450}} className="transparentBackground">
                             <CardActionArea>

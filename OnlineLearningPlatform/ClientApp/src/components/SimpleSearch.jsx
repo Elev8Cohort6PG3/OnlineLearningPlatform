@@ -81,7 +81,7 @@ function SimpleSearch(props) {
                 <SearchIcon className="searchIcon" onClick={handleSearchClick}/>
             </div>
 
-            <Grid item className="courseSearchGrid" xs={12} sm={6} md={3}>
+            <Grid item className="courseSearchGrid" xs={12} sm={6} md={3} style={{zIndex: 20}}>
 
                 {filteredCourses && isSmall && filteredCourses.map((course) => {
                     return (
@@ -95,7 +95,8 @@ function SimpleSearch(props) {
                                 backdropFilter: 'blur(100px)',
                                 cursor: 'pointer',
                                 width: "220px",
-                                marginLeft: "10px"
+                                marginLeft: "10px",
+                                zIndex: 20
                             }}
                             onClick={() => {
                                 window.location.assign(`/course-details/${course.courseWithoutVideoDto.id}`)
