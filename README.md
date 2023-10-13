@@ -22,35 +22,35 @@ This guide provides an overview of the platform's features and instructions for 
 Registration and Login
 To get started, you need to create an account and log in to access courses.
 
-Registration
+### Registration
 1.	Click on the "Sign Up" button.
 2.	Fill in your ﬁrst name(optional), last name(optional), username, email(optional), and password.
 3.	Click "Register" to create your account.
 
-Login
+### Login
 1.	Enter your username and password.
 2.	Click on the "Login" button to access your account.
 
-User Proﬁle
+### User Proﬁle
 Once logged in, you can manage your proﬁle information, including your name and email.
 
 ##	Course Management
-Course Catalog
+### Course Catalog
 Browse available courses, view details, and enroll in courses. Viewing Courses
  
 1.	Navigate to the "Course Catalog" section.
 2.	Browse through the list of available courses.
 3.	Click on a course to view its details.
 
-Enrollment
+### Enrollment
 Track your enrolled courses and monitor your progress.
 
-Enrolling in a Course
+### Enrolling in a Course
 1.	Find the course you want to enroll in.
 2.	Click the "Enroll" button.
 3.	You are now enrolled in the course.
 
-Progress Tracking
+### Progress Tracking
 1.	In the "My Courses" section, view your enrolled courses.
 2.	Check your course progress and completion percentage.
 
@@ -135,7 +135,7 @@ React-based web application was implemented. Overall, the code reﬂects a web a
 
 ## Backend Development
 
-Backend Description:
+### Backend Description:
 
 It is built using ASP.NET Core and focuses on user management, course management, and administrative functionalities. The code is divided into controllers, each responsible for handling speciﬁc HTTP requests and routes. The backend code incorporates ASP.NET Identity for user management, JWT token authentication for securing API routes, and AutoMapper for object mapping. It's designed to support an online learning platform with user registration, course management, and administrative control.
  
@@ -206,7 +206,7 @@ It is built using ASP.NET Core and focuses on user management, course management
 By implementing these security measures, our Online Learning Platform aims to provide a safe and secure environment for both users and their data.
 
 ##	Appendix
-Glossary
+### Glossary
 -	Admin: Administrative role with system-wide access.
 -	Instructor: Role for course creators and instructors.
 -	Member: Role for learners who enroll in courses.
